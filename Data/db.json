@@ -1,0 +1,54 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Osama Sayed",
+      "email": "osama@gmail.com"
+    },
+    {
+      "email": "olivier@mail.com",
+      "password": "bestPassw0rd",
+      "id": 2
+    },
+    {
+      "email": "olivieer@mail.com",
+      "password": "$2a$10$DbkGcmmSn9UmYH09Zf/zCeK3ErrQWhOQPfgA2aGPGAzyl9J0i/2kG",
+      "id": 3
+    },
+    {
+      "email": "olivieeer@mail.com",
+      "password": "$2a$10$6Fqy6/OIeSIGh8dVGBaFqOlP2XOhDOSRCkzNnFdjX5vmVB4kfFmNO",
+      "id": 4
+    },
+    {
+      "email": "olivieo@mail.com",
+      "password": "$2a$10$c6WifHfDhHsNxJyPWooYleqvAIr8wVPOqwYkQIbJP8MbvDr1bFxfa",
+      "id": 5
+    },
+    {
+      "email": "olivieo55@mail.com",
+      "password": "$2a$10$iMhghJbgR7b/wxVI0Doj1OnaBTyAQyLpzxpkU65habJ9WDesd3cWy",
+      "id": 6
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Post 1",
+      "content": "Content for post 1",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "title": "Post 2",
+      "content": "Content for post 2",
+      "userId": 2
+    },
+    {
+      "title": "Post 4",
+      "content": "Content for post 4",
+      "userId": 4,
+      "id": 3
+    }
+  ]
+}
