@@ -1,34 +1,18 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Osama Sayed",
-      "email": "osama@gmail.com"
+      "email": "osama@gmail.com",
+      "password": "$2a$10$soj50wdyAOR1yPstVRLci.x/iMJQiP5FBr5ZXPgqhPaLe8nmhHtce",
+      "username": "osama",
+      "confirm_password": "123456",
+      "id": 1
     },
     {
-      "email": "olivier@mail.com",
-      "password": "bestPassw0rd",
+      "email": "osama1@gmail.com",
+      "password": "$2a$10$MKKcC4T9yTNO0Z6QobsIxOe9rRvT87zsIBPK9yafaNLahId.Su862",
+      "username": "osama",
+      "confirm_password": "123456",
       "id": 2
-    },
-    {
-      "email": "olivieer@mail.com",
-      "password": "$2a$10$DbkGcmmSn9UmYH09Zf/zCeK3ErrQWhOQPfgA2aGPGAzyl9J0i/2kG",
-      "id": 3
-    },
-    {
-      "email": "olivieeer@mail.com",
-      "password": "$2a$10$6Fqy6/OIeSIGh8dVGBaFqOlP2XOhDOSRCkzNnFdjX5vmVB4kfFmNO",
-      "id": 4
-    },
-    {
-      "email": "olivieo@mail.com",
-      "password": "$2a$10$c6WifHfDhHsNxJyPWooYleqvAIr8wVPOqwYkQIbJP8MbvDr1bFxfa",
-      "id": 5
-    },
-    {
-      "email": "olivieo55@mail.com",
-      "password": "$2a$10$iMhghJbgR7b/wxVI0Doj1OnaBTyAQyLpzxpkU65habJ9WDesd3cWy",
-      "id": 6
     }
   ],
   "posts": [
