@@ -1,78 +1,55 @@
-import axios from "axios";
-import Joi from "joi";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.min.css";
+
 export default function RegisterForm() {
+  // ********** States ***********
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
-    reset,
     watch,
     getValues,
     formState: { errors },
   } = useForm();
 
+  // ********** Handlers ***************
   const registerHandler = async (data) => {
-    console.log(data);
-
+    setLoading(true);
     try {
       const res = await axios.post("http://localhost:3010/register", data);
       console.log(res);
       const token = res.data.accessToken;
       localStorage.setItem("token", token);
-      
+      setLoading(false);
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+
+      toast.error(`${error.response.data} 😞`, {
+        position: "top-right",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
   console.log(errors);
 
-  // *******State********
-  // const [user, setUser] = useState({
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  //   confirm_password: "",
-  // });
-
-  // // ********Handlers*********
-  // // get user object
-  // function getUser(e) {
-  //   //deep clone
-  //   const myUser = { ...user };
-  //   //edit
-  //   myUser[e.target.name] = e.target.value;
-  //   //update state
-  //   setUser(myUser);
-  //   console.log(myUser);
-  // }
-
-  // // submitting the form
-  // async function formSubmit(e) {
-  //   e.preventDefault();
-
-  //   const validationResponse = validateRegisterForm();
-  //   if (validationResponse.error) {
-
-  //   } else {
-
-  //     try {
-  //       const data = await axios.post("http://localhost:3010/register", user);
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-
-  //   }
-  // }
-
   return (
     <>
-      <div className="h-screen flex justify-center items-center bg-gradient-to-tr from-slate-300">
+      <div className="h-screen flex justify-center items-center">
         <div className="container mx-auto">
-          <div className="flex flex-col lg:flex-row w-10/12 lg:w-8/12 bg-white rounded-xl mx-auto shadow-lg overflow-hidden">
+          <div className="bg-formColor flex flex-col lg:flex-row w-10/12 lg:w-8/12 rounded-xl mx-auto shadow-xl overflow-hidden">
             <div className="w-full  h-[32rem] lg:w-1/2 bg-signup bg-cover bg-center bg-no-repeat flex justify-center items-center">
               <div className="text-center">
                 <h1 className="text-white text-3xl">Welcome</h1>
@@ -84,8 +61,8 @@ export default function RegisterForm() {
               </div>
             </div>
             <div className="w-full lg:w-1/2 py-12 px-12 h-[32rem]">
-              <h2 className="text-black text-3xl mb-4">Register</h2>
-              <p className="mb-4 text-black">Create your account</p>
+              <h2 className="text-3xl mb-4">Register</h2>
+              <p className="mb-4">Create your account</p>
               <form onSubmit={handleSubmit(registerHandler)}>
                 <div className="flex flex-col gap-2">
                   <input
@@ -94,11 +71,10 @@ export default function RegisterForm() {
                       minLength: { value: 5, message: "Min length is 5" },
                       maxLength: { value: 30, message: "Max length is 30" },
                     })}
-                    // onChange={getUser}
                     type="text"
                     placeholder="Full Name"
                     name="username"
-                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded text-black"
+                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded"
                   />
                   <p className="text-red-600">{errors.username?.message}</p>
                   <input
@@ -109,11 +85,10 @@ export default function RegisterForm() {
                         message: "Please enter a valid email format",
                       },
                     })}
-                    // onChange={getUser}
                     type="email"
                     placeholder="example@mail.com"
                     name="email"
-                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded text-black"
+                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded"
                   />
                   <p className="text-red-600">{errors.email?.message}</p>
                   <input
@@ -121,20 +96,18 @@ export default function RegisterForm() {
                       required: "Required",
                       minLength: { value: 5, message: "Min length is 5" },
                     })}
-                    // onChange={getUser}
                     type="text"
                     placeholder="Password"
                     name="password"
-                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded text-black"
+                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded"
                   />
                   <p className="text-red-600">{errors.password?.message}</p>
                   <input
                     {...register("confirm_password", { required: "Required" })}
-                    // onChange={getUser}
                     type="text"
                     placeholder="Confirm Password"
                     name="confirm_password"
-                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded text-black"
+                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded"
                   />
                   {watch("confirm_password") !== watch("password") &&
                   getValues("confirm_password") ? (
@@ -145,7 +118,9 @@ export default function RegisterForm() {
                   </p>
                   <button
                     type="submit"
-                    className="text-white btn capitalize text-lg"
+                    className={`${
+                      loading ? "loading" : ""
+                    } text-white btn btn-primary capitalize text-lg cursor-pointer`}
                   >
                     Signup
                   </button>
@@ -155,6 +130,18 @@ export default function RegisterForm() {
           </div>
         </div>
       </div>
+
+      <ToastContainer
+        limit={1}
+        position="top-right"
+        autoClose={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        theme="dark"
+      />
     </>
   );
 }

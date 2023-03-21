@@ -8,11 +8,25 @@
       "id": 1
     },
     {
-      "email": "osama1@gmail.com",
-      "password": "$2a$10$MKKcC4T9yTNO0Z6QobsIxOe9rRvT87zsIBPK9yafaNLahId.Su862",
-      "username": "osama",
-      "confirm_password": "123456",
+      "email": "mufo@mailinator.com",
+      "password": "$2a$10$GM2MHelJ2ufFwdTXAPXjHe3n5nqodoBDMmlElrvhVAsxqZMOGVTwm",
+      "username": "foneduke",
+      "confirm_password": "Dolorum iste enim ea",
       "id": 2
+    },
+    {
+      "email": "gazeqykos@mailinator.com",
+      "password": "$2a$10$5B83F/8rX6o6kERrM3mgA.Y2qJJW.eUVZXe6wBZrp2SozqvNWgbn2",
+      "username": "pojopyr",
+      "confirm_password": "Rerum quos qui magna",
+      "id": 3
+    },
+    {
+      "email": "hysahiroka@mailinator.com",
+      "password": "$2a$10$Zm41Ssedd7ms5NefochA8ujyjRfriEfqSPKJD1oYADAo5/OS9UE2i",
+      "username": "wawawopi",
+      "confirm_password": "Beatae et eaque sint",
+      "id": 4
     }
   ],
   "posts": [
