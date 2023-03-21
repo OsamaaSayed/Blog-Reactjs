@@ -1,8 +1,9 @@
-export default function Home(){
+import PostContainer from "../../Containers/Home-Page/PostContainer";
 
-    return <>
-    
-    
+export default function Home() {
+  return (
+    <>
+      <PostContainer />
     </>
-
+  );
 }

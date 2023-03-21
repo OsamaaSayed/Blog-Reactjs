@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.min.css";
+import { Link } from "react-router-dom";
 
 export default function LoginForm() {
   // ********** States ***********
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -27,6 +31,7 @@ export default function LoginForm() {
       const token = res.data.accessToken;
       localStorage.setItem("token", token);
       setLoading(false);
+      navigate('/');
     } catch (error) {
       setLoading(false);
 
@@ -49,8 +54,8 @@ export default function LoginForm() {
     <>
       <div className="h-screen flex justify-center items-center">
         <div className="container mx-auto">
-          <div className="bg-formColor flex flex-col lg:flex-row w-10/12 lg:w-8/12 rounded-xl mx-auto shadow-xl overflow-hidden">
-            <div className="w-full lg:w-1/2 py-12 px-12 h-[32rem]">
+          <div className="bg-formColor flex flex-col-reverse lg:flex-row w-10/12 lg:w-8/12 rounded-xl mx-auto shadow-xl overflow-hidden">
+            <div className="w-full h-[32rem] lg:w-1/2 py-12 px-12 ">
               <h2 className="text-3xl mb-4">Login</h2>
               <p className="mb-4">Enter with your account</p>
               <form onSubmit={handleSubmit(loginHandler)}>
@@ -89,6 +94,12 @@ export default function LoginForm() {
                   >
                     Login
                   </button>
+                  <div className="flex gap-2">
+                    <span>Don't have an account?</span>
+                    <Link to="/register" className="link link-primary">
+                      Signup
+                    </Link>
+                  </div>
                 </div>
               </form>
             </div>

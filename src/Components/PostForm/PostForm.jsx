@@ -6,9 +6,9 @@ function PostForm() {
       <div>
         <div className="md:grid ">
           <div className="mt-5  md:mt-0">
-            <form action="#" method="POST">
-              <div className="shadow sm:overflow-hidden sm:rounded-md">
-                <div className="space-y-6  px-4 py-5 sm:p-6">
+            <form>
+              <div className="sm:overflow-hidden sm:rounded-md">
+                <div className="space-y-6 px-4 py-5 sm:p-6">
                   <div>
                     <label
                       htmlFor="title"
@@ -66,7 +66,7 @@ function PostForm() {
                         <div className="flex text-sm text-gray-300">
                           <label
                             htmlFor="file-upload"
-                            className="relative cursor-pointer rounded-md font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
+                            className="relative cursor-pointer rounded-md font-medium text-primary focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
                             <span>Upload Image</span>
                             <input
@@ -87,7 +87,7 @@ function PostForm() {
                 <div className=" px-4 py-3 text-right sm:px-6">
                   <button
                     type="submit"
-                    className="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                    className="inline-flex justify-center rounded-md bg-primary py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-primary-focus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                   >
                     Save
                   </button>

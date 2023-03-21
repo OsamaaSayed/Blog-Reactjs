@@ -1,10 +1,25 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+
+
 
 export default function Header() {
+
+  const loginUser = localStorage.getItem('token');
+  const navigate = useNavigate();
+
+
+  // --------- Handlers --------
+  const logOutHandler = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    navigate('/login');
+  };
+
+
+
   return (
     <>
-      <div className="navbar bg-neutral-800 drop-shadow-lg">
-
+      <div className=" navbar bg-neutral-800 drop-shadow-lg">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -23,20 +38,24 @@ export default function Header() {
                 />
               </svg>
             </label>
+
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-neutral-800 rounded-box w-52"
             >
               <li>
                 <NavLink to="/">Home</NavLink>
               </li>
 
               <li>
-                <NavLink to="">Add Blog</NavLink>
+                <NavLink to="/addPost">Add Post</NavLink>
               </li>
             </ul>
           </div>
-          <Link to="/" className="btn btn-ghost normal-case text-xl">
+          <Link
+            to="/"
+            className=" ml-4 normal-case text-2xl hover:text-primary"
+          >
             ReactBlog
           </Link>
         </div>
@@ -60,26 +79,33 @@ export default function Header() {
                 <img src="src/assets/user.svg" />
               </div>
             </label>
-            
+
             <ul
               tabIndex="0"
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-neutral-800 rounded-box w-52"
             >
-              <li>
-                <Link to='/register' className="justify-between">
-                  Signup
-                </Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/">Logout</Link>
-              </li>
+              {loginUser ? (
+                <>
+                  <li>
+                    <Link onClick={logOutHandler}>Logout</Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/register" className="justify-between">
+                      Signup
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link to="/login">Login</Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
-
       </div>
     </>
   );

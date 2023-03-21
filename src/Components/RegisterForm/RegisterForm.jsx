@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
@@ -7,8 +9,11 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 export default function RegisterForm() {
+
   // ********** States ***********
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -27,6 +32,7 @@ export default function RegisterForm() {
       const token = res.data.accessToken;
       localStorage.setItem("token", token);
       setLoading(false);
+      navigate('/')
     } catch (error) {
       setLoading(false);
 
@@ -124,6 +130,12 @@ export default function RegisterForm() {
                   >
                     Signup
                   </button>
+                  <div className="flex gap-2">
+                    <span>Already have an account?</span>
+                    <Link to="/login" className="link link-primary">
+                      Login
+                    </Link>
+                  </div>
                 </div>
               </form>
             </div>

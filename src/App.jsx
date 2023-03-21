@@ -6,11 +6,13 @@ import Home from "./Pages/Home/Home";
 import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login";
 import AddPost from './Pages/AddPost/AddPost';
+import NotFound from "./Pages/NotFound/NotFound";
 
 import "./App.css";
 
+
 function App() {
-  const [count, setCount] = useState(0);
+
 
   return (
     <>
@@ -18,11 +20,14 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/addPost" element={<AddPost />} />
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </BrowserRouter>
+
     </>
   );
 }

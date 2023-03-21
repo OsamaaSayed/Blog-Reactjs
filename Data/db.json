@@ -27,6 +27,13 @@
       "username": "wawawopi",
       "confirm_password": "Beatae et eaque sint",
       "id": 4
+    },
+    {
+      "email": "osamaa44@gmail.com",
+      "password": "$2a$10$W1wVDTg2LfAdIkkZtkm4Z.Wq1Z2M78k8oxxZtLknjalbYtPVR9p4y",
+      "username": "Osamaa",
+      "confirm_password": "123456",
+      "id": 5
     }
   ],
   "posts": [
