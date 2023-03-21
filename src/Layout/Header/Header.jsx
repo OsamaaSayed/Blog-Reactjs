@@ -4,7 +4,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 
 export default function Header() {
 
-  const loginUser = localStorage.getItem('token');
+  const isAuthenticated = localStorage.getItem('token');
   const navigate = useNavigate();
 
 
@@ -15,8 +15,7 @@ export default function Header() {
     navigate('/login');
   };
 
-
-
+  
   return (
     <>
       <div className=" navbar bg-neutral-800 drop-shadow-lg">
@@ -84,7 +83,7 @@ export default function Header() {
               tabIndex="0"
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-neutral-800 rounded-box w-52"
             >
-              {loginUser ? (
+              {isAuthenticated ? (
                 <>
                   <li>
                     <Link onClick={logOutHandler}>Logout</Link>
