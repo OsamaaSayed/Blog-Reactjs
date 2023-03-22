@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import PostCard from "./../../Components/PostCard/PostCard";
 
-export default function PostContainer() {
+export default function PostDetailsContainer() {
+  const { id } = useParams();
+
   // ---------------- States ----------------
-  const [posts, setPosts] = useState([]);
+  const [post, setPost] = useState({});
+
+
 
   // ---------------- Effects ----------------
   useEffect(() => {
     async function getPosts() {
       try {
-        const { data } = await axios.get("http://localhost:3010/posts");
-        console.log(data);
-        setPosts(data);
+        const { data } = await axios.get(`http://localhost:3010/posts/${id}`);
+        setPost(data);
       } catch (error) {
         console.log("error", error);
       }
@@ -23,14 +27,14 @@ export default function PostContainer() {
 
   return (
     <>
-      {posts.map((post) => (
+      
         <PostCard
           key={post.id}
           id={post.id}
           title={post.title}
-          content={post.content.substring(0,50)+'...'}
+          content={post.content}
         />
-      ))}
+     
     </>
   );
 }

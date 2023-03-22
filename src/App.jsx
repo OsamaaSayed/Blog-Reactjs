@@ -9,8 +9,7 @@ import NotFound from "./Pages/NotFound/NotFound";
 import PrivateRoutes from "./Utils/PrivateRoutes/PrivateRoutes";
 
 import "./App.css";
-
-
+import PostDetails from "./Pages/PostDetails/PostDetails";
 
 function App() {
   return (
@@ -27,6 +26,7 @@ function App() {
             <Route path="/addPost" element={<AddPost />} />
           </Route>
 
+            <Route path="/post/:id" element={<PostDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
