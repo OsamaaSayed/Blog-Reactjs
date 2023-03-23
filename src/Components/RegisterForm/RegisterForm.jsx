@@ -24,19 +24,22 @@ export default function RegisterForm() {
   } = useForm();
 
   // ********** Handlers ***************
-  const registerHandler = async (data) => {
+  const registerHandler = async (user) => {
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3010/register", data);
-      console.log(res);
-      const token = res.data.accessToken;
+      const {data} = await axios.post("http://localhost:3001/v1/users/sign-up", user);
+      console.log(data);
+      const token = data.data.access_token;
+      const username = data.data.user.username;
+      localStorage.setItem('username',username);
       localStorage.setItem("token", token);
       setLoading(false);
       navigate('/')
     } catch (error) {
+      console.log('error',error);
       setLoading(false);
 
-      toast.error(`${error.response.data} 😞`, {
+      toast.error(`${error.response.data.message} 😞`, {
         position: "top-right",
         autoClose: false,
         hideProgressBar: false,
@@ -75,7 +78,7 @@ export default function RegisterForm() {
                     {...register("username", {
                       required: "Required",
                       minLength: { value: 5, message: "Min length is 5" },
-                      maxLength: { value: 30, message: "Max length is 30" },
+                      maxLength: { value: 20, message: "Max length is 20" },
                     })}
                     type="text"
                     placeholder="Full Name"

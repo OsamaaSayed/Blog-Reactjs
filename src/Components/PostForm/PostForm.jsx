@@ -1,52 +1,129 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 function PostForm() {
+  const token = localStorage.getItem("token");
+
+  // ------- For form validation ----------
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  // ------- For navigation -------
+  const navigate = useNavigate();
+
+  // -------- States ---------------
+  const [loading, SetLoading] = useState(false);
+
+  // -------- Handlers -------------
+  const handleSavePost = async (data) => {
+    SetLoading(true);
+
+    const { photo, title, content } = data;
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("photo", photo[0]);
+
+    // for Authorization
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    try {
+      const { res } = await axios.post(
+        "http://localhost:3001/v1/post",
+        formData,
+        config
+      );
+      console.log(res);
+      SetLoading(false);
+      navigate("/");
+    } catch (error) {
+      SetLoading(false);
+      console.log("error", error);
+
+      toast.error(`${error.response.data} 😞`, {
+        position: "top-right",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  };
+
+  console.log(errors);
+
   return (
     <>
       <div>
         <div className="md:grid ">
           <div className="mt-5  md:mt-0">
-            <form>
+            <form onSubmit={handleSubmit(handleSavePost)}>
               <div className="sm:overflow-hidden sm:rounded-md">
                 <div className="space-y-6 px-4 py-5 sm:p-6">
                   <div>
                     <label
                       htmlFor="title"
-                      className="block text-sm font-medium leading-6 "
+                      className="block text-lg font-medium leading-6 "
                     >
                       Title
                     </label>
                     <div className="mt-2">
                       <input
+                        {...register("title", {
+                          required: "Required",
+                          maxLength: { value: 70, message: "Max length 70" },
+                          minLength: { value: 5, message: "Min length 5" },
+                        })}
                         id="title"
                         type="text"
+                        name="title"
                         className="input input-bordered focus:outline-none w-full border-gray-200  bg-transparent"
                       />
+                      {<p className="text-red-600">{errors.title?.message}</p>}
                     </div>
                   </div>
 
                   <div>
                     <label
                       htmlFor="description"
-                      className="block text-sm font-medium leading-6 "
+                      className="block text-lg font-medium leading-6 "
                     >
                       Description
                     </label>
                     <div className="mt-2 ">
                       <textarea
+                        {...register("content", {
+                          required: "Required",
+                          minLength: { value: 10, message: "Min length 10" },
+                        })}
                         id="description"
-                        name="description"
+                        name="content"
                         rows={3}
                         className="resize-none bg-transparent border-gray-200 mt-1 block w-full rounded-md border input-bordered sm:p-1.5 sm:text-sm sm:leading-6 focus:outline-none"
                         placeholder="Brief description for your post"
                       />
+                      <p className="text-red-600">{errors.content?.message}</p>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium leading-6 ">
+                    <label className="block text-lg font-medium leading-6 ">
                       Cover photo
                     </label>
+
                     <div className="mt-2 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                       <div className="space-y-1 text-center">
                         <svg
@@ -70,8 +147,9 @@ function PostForm() {
                           >
                             <span>Upload Image</span>
                             <input
+                              {...register("photo", { required: "Required" })}
                               id="file-upload"
-                              name="file-upload"
+                              name="photo"
                               type="file"
                               accept="image/jpg, image/jpeg , image/png"
                               className="sr-only"
@@ -82,14 +160,17 @@ function PostForm() {
                         <p className="text-xs text-gray-300">PNG, JPG, JPEG</p>
                       </div>
                     </div>
+                    <p className="text-red-600">{errors.photo?.message}</p>
                   </div>
                 </div>
                 <div className=" px-4 py-3 text-right sm:px-6">
                   <button
                     type="submit"
-                    className="inline-flex justify-center rounded-md bg-primary py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-primary-focus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                    className={`${
+                      loading ? "loading" : ""
+                    } text-white btn btn-primary capitalize text-sm cursor-pointer`}
                   >
-                    Save
+                    Post
                   </button>
                 </div>
               </div>
@@ -97,6 +178,18 @@ function PostForm() {
           </div>
         </div>
       </div>
+
+      <ToastContainer
+        limit={1}
+        position="top-right"
+        autoClose={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        theme="dark"
+      />
     </>
   );
 }

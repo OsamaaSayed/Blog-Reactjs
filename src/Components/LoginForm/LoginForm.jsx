@@ -1,41 +1,44 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.min.css";
-import { Link } from "react-router-dom";
 
 export default function LoginForm() {
+
   // ********** States ***********
   const [loading, setLoading] = useState(false);
 
+// ----------- for navigation -----------
   const navigate = useNavigate();
 
+  // ---------- for form validation ----------
   const {
     register,
     handleSubmit,
-    watch,
-    getValues,
     formState: { errors },
   } = useForm();
 
   // ********** Handlers ***************
-  const loginHandler = async (data) => {
+  const loginHandler = async (user) => {
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3010/login", data);
-      console.log(res);
-      const token = res.data.accessToken;
+      const {data} = await axios.post("http://localhost:3001/v1/users/sign-in", user);
+      console.log(data);
+      const token = data.data.access_token;
+      const username = data.data.user.username;
+      localStorage.setItem('username', username);
       localStorage.setItem("token", token);
       setLoading(false);
       navigate('/');
     } catch (error) {
       setLoading(false);
 
-      toast.error(`${error.response.data} 😞`, {
+      toast.error(`${error.response.data.message} 😞`, {
         position: "top-right",
         autoClose: false,
         hideProgressBar: false,
@@ -48,7 +51,7 @@ export default function LoginForm() {
     }
   };
 
-  console.log(errors);
+  // console.log(errors);
 
   return (
     <>
@@ -88,9 +91,7 @@ export default function LoginForm() {
 
                   <button
                     type="submit"
-                    className={`${
-                      loading ? "loading" : ""
-                    } text-white btn btn-primary capitalize text-lg cursor-pointer`}
+                    className={`${loading ? "loading" : ""} text-white btn btn-primary capitalize text-lg cursor-pointer`}
                   >
                     Login
                   </button>

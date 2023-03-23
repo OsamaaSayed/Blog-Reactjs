@@ -5,21 +5,23 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 export default function Header() {
 
   const isAuthenticated = localStorage.getItem('token');
+  const username = localStorage.getItem('username');
   const navigate = useNavigate();
 
 
   // --------- Handlers --------
   const logOutHandler = (e) => {
     e.preventDefault();
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
     navigate('/login');
   };
 
   
   return (
     <>
-      <div className=" navbar bg-neutral-800 drop-shadow-lg">
-        <div className="navbar-start">
+      <div className=" navbar justify-between bg-neutral-800 drop-shadow-lg">
+        <div className="">
 
           <Link
             to="/"
@@ -29,7 +31,7 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="navbar-center hidden lg:flex">
+        <div className=" lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
               <NavLink to="/">Home</NavLink>
@@ -41,7 +43,9 @@ export default function Header() {
           </ul>
         </div>
 
-        <div className="navbar-end">
+        <div className="">
+
+        <div>{username}</div>
           <div className="dropdown dropdown-end mr-4">
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
               <div className="w-14 rounded-full">
@@ -73,8 +77,12 @@ export default function Header() {
                 </>
               )}
             </ul>
+
           </div>
+
+          
         </div>
+
       </div>
     </>
   );
