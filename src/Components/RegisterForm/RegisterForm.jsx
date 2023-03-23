@@ -30,9 +30,11 @@ export default function RegisterForm() {
       const {data} = await axios.post("http://localhost:3001/v1/users/sign-up", user);
       console.log(data);
       const token = data.data.access_token;
+      const userId = data.data.user._id;
       const username = data.data.user.username;
-      localStorage.setItem('username',username);
       localStorage.setItem("token", token);
+      localStorage.setItem("userId",userId);
+      localStorage.setItem('username',username);
       setLoading(false);
       navigate('/')
     } catch (error) {

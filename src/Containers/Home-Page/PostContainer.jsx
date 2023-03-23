@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
+
 import PostCard from "../../Components/shared/PostCard/PostCard";
 
 export default function PostContainer() {
@@ -33,25 +35,31 @@ export default function PostContainer() {
             title={post.title.substring(0, 50) + "..."}
             content={post.content.substring(0, 70) + "..."}
             photo={post.photo}
-            name={post.user.username}
-            date={post.createdAt}
+            name={post.user?.username}
+            userPostId={post.user?._id}
+            createdAt={post.createdAt}
           />
         ))
-      ) : !posts?(
+      ) : !posts.length ? (
         <>
-          
-          <div className="container mx-auto text-center">
-          <h1>Blog Is Empty...</h1>
+          <div className="container mx-auto text-cente h-screen flex justify-center items-center">
+            <ThreeDots
+              height="80"
+              width="80"
+              radius="9"
+              color="#661AE6"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            />
           </div>
-          
         </>
-      ):(
+      ) : (
         <>
-          
           <div className="container mx-auto text-center">
-          <h1>Please wait...</h1>
+            <h1>Blog is empty...</h1>
           </div>
-          
         </>
       )}
     </>

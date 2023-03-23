@@ -30,12 +30,15 @@ export default function LoginForm() {
       const {data} = await axios.post("http://localhost:3001/v1/users/sign-in", user);
       console.log(data);
       const token = data.data.access_token;
-      const username = data.data.user.username;
-      localStorage.setItem('username', username);
+      const userId = data.data.userBody._id;
+      const username = data.data.userBody.username;
       localStorage.setItem("token", token);
+      localStorage.setItem("userId", userId);
+      localStorage.setItem('username', username);
       setLoading(false);
       navigate('/');
     } catch (error) {
+      console.log('error',error);
       setLoading(false);
 
       toast.error(`${error.response.data.message} 😞`, {
