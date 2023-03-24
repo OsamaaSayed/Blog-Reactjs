@@ -9,11 +9,10 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 export default function LoginForm() {
-
   // ********** States ***********
   const [loading, setLoading] = useState(false);
 
-// ----------- for navigation -----------
+  // ----------- for navigation -----------
   const navigate = useNavigate();
 
   // ---------- for form validation ----------
@@ -27,18 +26,23 @@ export default function LoginForm() {
   const loginHandler = async (user) => {
     setLoading(true);
     try {
-      const {data} = await axios.post("http://localhost:3001/v1/users/sign-in", user);
+      const { data } = await axios.post(
+        "http://localhost:3001/v1/users/sign-in",
+        user
+      );
       console.log(data);
       const token = data.data.access_token;
       const userId = data.data.userBody._id;
       const username = data.data.userBody.username;
+      const gender = data.data.userBody.gender;
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
-      localStorage.setItem('username', username);
+      localStorage.setItem("username", username);
+      localStorage.setItem("gender", gender);
       setLoading(false);
-      navigate('/');
+      navigate("/");
     } catch (error) {
-      console.log('error',error);
+      console.log("error", error);
       setLoading(false);
 
       toast.error(`${error.response.data.message} 😞`, {
@@ -94,7 +98,9 @@ export default function LoginForm() {
 
                   <button
                     type="submit"
-                    className={`${loading ? "loading" : ""} text-white btn btn-primary capitalize text-lg cursor-pointer`}
+                    className={`${
+                      loading ? "loading" : ""
+                    } text-white btn btn-primary capitalize text-lg cursor-pointer`}
                   >
                     Login
                   </button>
@@ -112,9 +118,8 @@ export default function LoginForm() {
               <div className="text-center">
                 <h1 className="text-white text-3xl">Welcome Back</h1>
                 <p className="text-white">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Molestiae aliquid praesentium distinctio temporibus voluptate
-                  et id pariatur quisquam quibusdam dignissimos.
+                  Explore Learn Inspire, Your Destination for Insightful
+                  Blogging
                 </p>
               </div>
             </div>

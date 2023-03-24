@@ -6,14 +6,16 @@ import EditCard from "./../EditCard/EditCard";
 function PostCard({
   title,
   content,
-  id,
+  postId,
   name,
   createdAt,
   photo,
   flag,
   userPostId,
+  deletePostHandler,
 }) {
   const userId = localStorage.getItem("userId");
+  const gender = localStorage.getItem("gender");
 
   // -- to get the image object --
   const [image] = photo;
@@ -26,18 +28,14 @@ function PostCard({
   return (
     <>
       {/* *********** Card *********** */}
-      <div
-        className={`${
-          flag ? "w-[1000px]" : ""
-        } container w-[700px] mx-auto my-4 overflow-hidden`}
-      >
+      <div className="container w-[700px] mx-auto my-4 overflow-hidden">
         <div
           className={`${
             flag ? "md:flex-col" : ""
           } card md:card-side bg-formColor shadow-xl my-4 justify-center items-center`}
         >
           <figure className={`${flag ? "md:w-full" : ""} w-full md:w-2/5`}>
-            <Link to={`/post/${id}`} className="w-full">
+            <Link to={`/post/${postId}`} className="w-full">
               <img
                 className="w-full h-[23rem] object-cover"
                 src={image.url}
@@ -52,27 +50,46 @@ function PostCard({
             } card-body w-full justify-evenly md:w-3/5 overflow-hidden`}
           >
             <div>
-              <Link to={`/post/${id}`}>
+              <Link to={`/post/${postId}`}>
                 <h2 className="card-title">{title}</h2>
               </Link>
             </div>
 
             <div>
-              <Link to={`/post/${id}`}>
+              <Link to={`/post/${postId}`}>
                 <p className="flex-grow-0">{content}</p>
               </Link>
             </div>
 
-            <div className="card-actions justify-between items-center mt-1">
-              <div className="flex flex-col justify-center ">
-                <span className="text-gray-300 text-sm capitalize">{name}</span>
-                <span className="text-gray-400 text-xs">{swapDate}</span>
+            <div className="card-actions justify-between items-end mt-1">
+              <div className="flex justify-center items-end ">
+                <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
+                  <div className="w-14 rounded-full">
+                    {gender === "Male" ? (
+                      <img src="/src/assets/male.svg" />
+                    ) : gender === "Female" ? (
+                      <img src="/src/assets/female.svg" />
+                    ) : (
+                      <img src="/src/assets/unknown.svg" />
+                    )}
+                  </div>
+                </label>
+
+                <div className="flex flex-col justify-center">
+                  <span className="text-gray-300 text-sm capitalize">
+                    {name}
+                  </span>
+                  <span className="text-gray-400 text-xs">{swapDate}</span>
+                </div>
               </div>
 
               {userPostId === userId ? (
                 <div className="flex gap-2">
                   <EditCard />
-                  <DeleteCard />
+                  <DeleteCard
+                    postId={postId}
+                    deletePostHandler={deletePostHandler}
+                  />
                 </div>
               ) : (
                 ""

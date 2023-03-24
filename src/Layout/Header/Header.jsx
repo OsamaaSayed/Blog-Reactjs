@@ -6,6 +6,7 @@ export default function Header() {
 
   const isAuthenticated = localStorage.getItem('token');
   const username = localStorage.getItem('username');
+  const gender = localStorage.getItem('gender');
   const navigate = useNavigate();
 
 
@@ -14,6 +15,8 @@ export default function Header() {
     e.preventDefault();
     localStorage.removeItem('token');
     localStorage.removeItem('username');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('gender');
     navigate('/login');
   };
 
@@ -47,12 +50,14 @@ export default function Header() {
 
         <div>{username}</div>
           <div className="dropdown dropdown-end mr-4">
+
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
               <div className="w-14 rounded-full">
-                <img src="src/assets/user.svg" />
+                {gender==='Male'? <img src="/src/assets/male.svg" />
+                 : gender==='Female'? <img src="/src/assets/female.svg" /> :<img src="/src/assets/unknown.svg" />}
               </div>
             </label>
-
+            
             <ul
               tabIndex="0"
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-neutral-800 rounded-box w-52"

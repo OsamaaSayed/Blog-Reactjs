@@ -9,7 +9,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 export default function RegisterForm() {
-
   // ********** States ***********
   const [loading, setLoading] = useState(false);
 
@@ -25,20 +24,26 @@ export default function RegisterForm() {
 
   // ********** Handlers ***************
   const registerHandler = async (user) => {
+    console.log(user.gender);
     setLoading(true);
     try {
-      const {data} = await axios.post("http://localhost:3001/v1/users/sign-up", user);
+      const { data } = await axios.post(
+        "http://localhost:3001/v1/users/sign-up",
+        user
+      );
       console.log(data);
       const token = data.data.access_token;
       const userId = data.data.user._id;
       const username = data.data.user.username;
+      const gender = data.data.user.gender;
       localStorage.setItem("token", token);
-      localStorage.setItem("userId",userId);
-      localStorage.setItem('username',username);
+      localStorage.setItem("userId", userId);
+      localStorage.setItem("username", username);
+      localStorage.setItem("gender", gender);
       setLoading(false);
-      navigate('/')
+      navigate("/");
     } catch (error) {
-      console.log('error',error);
+      console.log("error", error);
       setLoading(false);
 
       toast.error(`${error.response.data.message} 😞`, {
@@ -65,13 +70,13 @@ export default function RegisterForm() {
               <div className="text-center">
                 <h1 className="text-white text-3xl">Welcome</h1>
                 <p className="text-white">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Molestiae aliquid praesentium distinctio temporibus voluptate
-                  et id pariatur quisquam quibusdam dignissimos.
+                  Start exploring our website today, and discover a world of
+                  knowledge and inspiration that will help you achieve your
+                  goals and live your best life
                 </p>
               </div>
             </div>
-            <div className="w-full lg:w-1/2 py-12 px-12 h-[32rem]">
+            <div className="w-full lg:w-1/2 py-8 px-12 h-[32rem]">
               <h2 className="text-3xl mb-4">Register</h2>
               <p className="mb-4">Create your account</p>
               <form onSubmit={handleSubmit(registerHandler)}>
@@ -127,6 +132,22 @@ export default function RegisterForm() {
                   <p className="text-red-600">
                     {errors.confirm_password?.message}
                   </p>
+
+
+                  <select
+                    {...register("gender", { required: "Required" })}
+                    name="gender"
+                    className="select select-bordered select-sm w-full max-w-xs"
+                  >
+                    <option disabled selected>
+                      Gender
+                    </option>
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                  <p className="text-red-600">{errors.gender?.message}</p>
+
+
                   <button
                     type="submit"
                     className={`${

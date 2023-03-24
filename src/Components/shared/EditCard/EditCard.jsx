@@ -3,7 +3,7 @@ import React from "react";
 export default function EditCard() {
   return (
     <>
-    <button className="text-yellow-500">
+    <button className="text-yellow-500 hover:text-yellow-300">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
