@@ -60,7 +60,7 @@ export default function PostDetailsContainer() {
         theme: "dark",
       });
 
-      // navigate after the success pop finish
+      // navigate to home after the success pop finish
       setTimeout(() => {
         navigate("/");
       }, 2500);

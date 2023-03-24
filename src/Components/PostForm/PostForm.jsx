@@ -45,11 +45,26 @@ function PostForm() {
       );
       console.log(res);
       SetLoading(false);
-      navigate("/");
+
+      // Success pop up
+      toast.success("Posted successfully", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "dark",
+      });
+
+      // navigate to home after the success pop finish
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
     } catch (error) {
       SetLoading(false);
-      console.log("error", error);
-
+      // Error pop up
       toast.error(`${error.response.data} 😞`, {
         position: "top-right",
         autoClose: false,
@@ -62,8 +77,6 @@ function PostForm() {
       });
     }
   };
-
-  console.log(errors);
 
   return (
     <>
@@ -160,6 +173,7 @@ function PostForm() {
                         <p className="text-xs text-gray-300">PNG, JPG, JPEG</p>
                       </div>
                     </div>
+
                     <p className="text-red-600">{errors.photo?.message}</p>
                   </div>
                 </div>
@@ -179,6 +193,7 @@ function PostForm() {
         </div>
       </div>
 
+      {/* Posting Error */}
       <ToastContainer
         limit={1}
         position="top-right"
@@ -188,6 +203,21 @@ function PostForm() {
         rtl={false}
         pauseOnFocusLoss
         draggable
+        theme="dark"
+      />
+
+      {/* Posting success */}
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        limit={1}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover={false}
         theme="dark"
       />
     </>
