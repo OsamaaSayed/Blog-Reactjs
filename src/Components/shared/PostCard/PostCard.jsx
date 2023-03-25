@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import DeleteCard from "../DeleteCard/DeleteCard";
 import EditCard from "./../EditCard/EditCard";
 
-function PostCard({
+export default function PostCard({
   title,
   content,
   postId,
@@ -13,6 +13,9 @@ function PostCard({
   flag,
   userPostId,
   deletePostHandler,
+  updatePostHandler,
+  post,
+  loading,
 }) {
   const userId = localStorage.getItem("userId");
   const gender = localStorage.getItem("gender");
@@ -85,10 +88,16 @@ function PostCard({
 
               {userPostId === userId ? (
                 <div className="flex gap-2">
-                  <EditCard />
+                  <EditCard
+                    postId={postId}
+                    updatePostHandler={updatePostHandler}
+                    post={post}
+                    loading={loading}
+                  />
                   <DeleteCard
                     postId={postId}
                     deletePostHandler={deletePostHandler}
+                    loading={loading}
                   />
                 </div>
               ) : (
@@ -104,4 +113,3 @@ function PostCard({
   );
 }
 
-export default PostCard;

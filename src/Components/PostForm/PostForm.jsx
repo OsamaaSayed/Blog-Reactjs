@@ -26,7 +26,7 @@ function PostForm() {
     SetLoading(true);
 
     const { photo, title, content } = data;
-
+console.log(photo);
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
@@ -96,7 +96,7 @@ function PostForm() {
                     <div className="mt-2">
                       <input
                         {...register("title", {
-                          required: "Required",
+                          required: "Title is required",
                           maxLength: { value: 70, message: "Max length 70" },
                           minLength: { value: 5, message: "Min length 5" },
                         })}
@@ -119,7 +119,7 @@ function PostForm() {
                     <div className="mt-2 ">
                       <textarea
                         {...register("content", {
-                          required: "Required",
+                          required: "Description is required",
                           minLength: { value: 10, message: "Min length 10" },
                         })}
                         id="description"
@@ -160,7 +160,7 @@ function PostForm() {
                           >
                             <span>Upload Image</span>
                             <input
-                              {...register("photo", { required: "Required" })}
+                              {...register("photo", { required: "Image is required" })}
                               id="file-upload"
                               name="photo"
                               type="file"
@@ -192,19 +192,6 @@ function PostForm() {
           </div>
         </div>
       </div>
-
-      {/* Posting Error */}
-      <ToastContainer
-        limit={1}
-        position="top-right"
-        autoClose={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        theme="dark"
-      />
 
       {/* Posting success */}
       <ToastContainer

@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function DeleteCard({ postId , deletePostHandler }) {
+export default function DeleteCard({ postId, deletePostHandler, loading }) {
+  // -------States -----------
+  let [modal, setModal] = useState(null);
 
+  useEffect(() => {
+    modal = document.getElementById("modal-box");
+    setModal(modal);
+  }, []);
 
   return (
     <>
@@ -28,8 +34,8 @@ export default function DeleteCard({ postId , deletePostHandler }) {
 
       {/* The Modal Body */}
       <input type="checkbox" id="my-modal" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box">
+      <div id="modal" className="modal">
+        <div id="modal-box" className="modal-box">
           <h3 className="font-bold text-lg">
             Are you sure you want to delete this post?
           </h3>
@@ -40,13 +46,15 @@ export default function DeleteCard({ postId , deletePostHandler }) {
             <label htmlFor="my-modal" className="btn">
               No
             </label>
-            <label
-              onClick={()=>deletePostHandler(postId)}
+            <button
+              onClick={() => deletePostHandler(postId, modal)}
               htmlFor="my-modal"
-              className="btn bg-red-600 text-white outline-none border-none hover:bg-red-500"
+              className={`${
+                loading ? "loading" : ""
+              } btn bg-red-600 text-white outline-none border-none hover:bg-red-500`}
             >
               yes
-            </label>
+            </button>
           </div>
         </div>
       </div>

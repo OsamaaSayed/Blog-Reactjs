@@ -42,7 +42,6 @@ export default function LoginForm() {
       setLoading(false);
       navigate("/");
     } catch (error) {
-      console.log("error", error);
       setLoading(false);
 
       toast.error(`${error.response.data.message} 😞`, {
@@ -72,7 +71,7 @@ export default function LoginForm() {
                 <div className="flex flex-col gap-2">
                   <input
                     {...register("email", {
-                      required: "Required",
+                      required: "Email is required",
                       pattern: {
                         value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
                         message: "Please enter a valid email format",
@@ -86,7 +85,7 @@ export default function LoginForm() {
                   <p className="text-red-600">{errors.email?.message}</p>
                   <input
                     {...register("password", {
-                      required: "Required",
+                      required: "Password is required",
                       minLength: { value: 5, message: "Min length is 5" },
                     })}
                     type="text"

@@ -66,7 +66,7 @@ export default function RegisterForm() {
       <div className="h-screen flex justify-center items-center">
         <div className="container mx-auto">
           <div className="bg-formColor flex flex-col lg:flex-row w-10/12 lg:w-8/12 rounded-xl mx-auto shadow-xl overflow-hidden">
-            <div className="w-full  h-[32rem] lg:w-1/2 bg-signup bg-cover bg-center bg-no-repeat flex justify-center items-center">
+            <div className="w-full h-[32rem] lg:w-1/2 bg-signup bg-cover bg-center bg-no-repeat flex justify-center items-center">
               <div className="text-center">
                 <h1 className="text-white text-3xl">Welcome</h1>
                 <p className="text-white">
@@ -76,14 +76,14 @@ export default function RegisterForm() {
                 </p>
               </div>
             </div>
-            <div className="w-full lg:w-1/2 py-8 px-12 h-[32rem]">
+            <div className="w-full lg:w-1/2 py-4 px-12 h-[32rem]">
               <h2 className="text-3xl mb-4">Register</h2>
               <p className="mb-4">Create your account</p>
               <form onSubmit={handleSubmit(registerHandler)}>
                 <div className="flex flex-col gap-2">
                   <input
                     {...register("username", {
-                      required: "Required",
+                      required: "Name is required",
                       minLength: { value: 5, message: "Min length is 5" },
                       maxLength: { value: 20, message: "Max length is 20" },
                     })}
@@ -95,7 +95,7 @@ export default function RegisterForm() {
                   <p className="text-red-600">{errors.username?.message}</p>
                   <input
                     {...register("email", {
-                      required: "Required",
+                      required: "Email is required",
                       pattern: {
                         value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
                         message: "Please enter a valid email format",
@@ -109,7 +109,7 @@ export default function RegisterForm() {
                   <p className="text-red-600">{errors.email?.message}</p>
                   <input
                     {...register("password", {
-                      required: "Required",
+                      required: "Password is required",
                       minLength: { value: 5, message: "Min length is 5" },
                     })}
                     type="text"
@@ -119,7 +119,7 @@ export default function RegisterForm() {
                   />
                   <p className="text-red-600">{errors.password?.message}</p>
                   <input
-                    {...register("confirm_password", { required: "Required" })}
+                    {...register("confirm_password", { required: "Confirm Password is required" })}
                     type="text"
                     placeholder="Confirm Password"
                     name="confirm_password"
@@ -135,9 +135,9 @@ export default function RegisterForm() {
 
 
                   <select
-                    {...register("gender", { required: "Required" })}
+                    {...register("gender", { required: "Gender is required" })}
                     name="gender"
-                    className="select select-bordered select-sm w-full max-w-xs"
+                    className="select select-bordered select-sm w-full bg-formColor border-gray-400 focus:outline-none"
                   >
                     <option disabled selected>
                       Gender

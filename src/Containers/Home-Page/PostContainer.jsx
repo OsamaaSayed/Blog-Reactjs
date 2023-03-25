@@ -8,13 +8,12 @@ import ServerError from "./../../Pages/ServerError/ServerError";
 
 export default function PostContainer() {
   const token = localStorage.getItem("token");
-
-  //for Authorization
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
   // ---------------- States ----------------
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, SetLoading] = useState(false);
 
   // ---------------- Effects ----------------
   useEffect(() => {
@@ -33,13 +32,15 @@ export default function PostContainer() {
   }, []);
 
   // --------------- Handlers ----------------
-  const deletePostHandler = async (postId) => {
+  const deletePostHandler = async (postId, modal) => {
+    // Start button loading
+    SetLoading(true);
     try {
       // to delete the post
-      const { data } = await axios.delete(
-        `http://localhost:3001/v1/post/${postId}`,
-        config
-      );
+      await axios.delete(`http://localhost:3001/v1/post/${postId}`, config);
+
+      // Stop button loading
+      SetLoading(false);
 
       // to render the new data
       const response = await axios.get(
@@ -58,10 +59,15 @@ export default function PostContainer() {
         progress: undefined,
         theme: "dark",
       });
-    } catch (error) {
 
+      // Close Modal
+      modal.style.display = "none";
+    } catch (error) {
+      // Stop button loading
+      SetLoading(false);
+      console.log("error", error);
       // Error pop up
-      toast.error('sorry.., something went wrong. Please try again later', {
+      toast.error("Sorry.., something went wrong. Please try again later", {
         position: "top-right",
         autoClose: false,
         hideProgressBar: false,
@@ -70,8 +76,67 @@ export default function PostContainer() {
         draggable: false,
         progress: undefined,
         theme: "dark",
-        });
+      });
+    }
+  };
 
+  const updatePostHandler = async (data, postId, modal) => {
+    // Start button loading
+    SetLoading(true);
+
+    // The new data
+    const { title, content, photo } = data;
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("photo", photo[0]);
+
+    try {
+      // to edit the data
+      await axios.patch(
+        `http://localhost:3001/v1/post/${postId}`,
+        formData,
+        config
+      );
+
+      // Stop button loading
+      SetLoading(false);
+
+      // to render the new data
+      const response = await axios.get(
+        "http://localhost:3001/v1/post?limit=1000"
+      );
+      setPosts(response.data.data);
+
+      // Success pop up
+      toast.success("Updated successfully", {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "dark",
+      });
+
+      // Clsoe Modal
+      modal.style.display = "none";
+    } catch (error) {
+      // Stop button loading
+      SetLoading(false);
+
+      // Error pop up
+      toast.error(`${error.response.data.message} 😞`, {
+        position: "top-right",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
@@ -89,6 +154,9 @@ export default function PostContainer() {
             userPostId={post.user?._id}
             createdAt={post.createdAt}
             deletePostHandler={deletePostHandler}
+            updatePostHandler={updatePostHandler}
+            post={post}
+            loading={loading}
           />
         ))
       ) : !posts.length && !error ? (
@@ -110,10 +178,8 @@ export default function PostContainer() {
         ""
       )}
 
-
       {error ? <ServerError /> : ""}
 
-      {/*  Delete Post success */}
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -125,18 +191,6 @@ export default function PostContainer() {
         pauseOnFocusLoss
         draggable={false}
         pauseOnHover={false}
-        theme="dark"
-      />
-
-      {/* Delete Post Error */}
-      <ToastContainer
-        position="top-right"
-        autoClose={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable={false}
         theme="dark"
       />
     </>
