@@ -9,6 +9,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 export default function RegisterForm() {
+  // BACKEND API
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   // ********** States ***********
   const [loading, setLoading] = useState(false);
 
@@ -28,7 +31,7 @@ export default function RegisterForm() {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "http://localhost:3001/v1/users/sign-up",
+        `${BASE_URL}/v1/users/sign-up`,
         user
       );
       console.log(data);

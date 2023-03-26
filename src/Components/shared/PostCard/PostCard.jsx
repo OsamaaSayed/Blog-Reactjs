@@ -17,6 +17,7 @@ export default function PostCard({
   post,
   loading,
 }) {
+  
   const userId = localStorage.getItem("userId");
   const gender = localStorage.getItem("gender");
 

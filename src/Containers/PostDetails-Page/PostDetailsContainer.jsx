@@ -8,6 +8,11 @@ import { ThreeDots } from "react-loader-spinner";
 import ServerError from "../../Pages/ServerError/ServerError";
 
 export default function PostDetailsContainer() {
+
+  // BACKEND API
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
   const navigate = useNavigate();
@@ -27,7 +32,7 @@ export default function PostDetailsContainer() {
   useEffect(() => {
     async function getPosts() {
       try {
-        const { data } = await axios.get(`http://localhost:3001/v1/post/${id}`);
+        const { data } = await axios.get(`${BASE_URL}/v1/post/${id}`);
         console.log(data.data);
         setPost(data.data);
       } catch (error) {
@@ -45,7 +50,7 @@ export default function PostDetailsContainer() {
     SetLoading(true);
     try {
       // to delete the post
-      await axios.delete(`http://localhost:3001/v1/post/${postId}`, config);
+      await axios.delete(`${BASE_URL}/v1/post/${postId}`, config);
 
       // Stop Loading
       SetLoading(false);
@@ -65,7 +70,7 @@ export default function PostDetailsContainer() {
       // Close modal
       modal.style.display = "none";
 
-      // navigate to home after the success pop finish
+      // navigate to home after the success pop up finish
       setTimeout(() => {
         navigate("/");
       }, 2500);
@@ -101,7 +106,7 @@ export default function PostDetailsContainer() {
     try {
       // to edit the data
       await axios.patch(
-        `http://localhost:3001/v1/post/${postId}`,
+        `${BASE_URL}/v1/post/${postId}`,
         formData,
         config
       );

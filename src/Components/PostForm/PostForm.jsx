@@ -6,6 +6,10 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 function PostForm() {
+
+  //BACKEND API
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  
   const token = localStorage.getItem("token");
 
   // ------- For form validation ----------
@@ -26,7 +30,7 @@ function PostForm() {
     SetLoading(true);
 
     const { photo, title, content } = data;
-console.log(photo);
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
@@ -39,7 +43,7 @@ console.log(photo);
 
     try {
       const { res } = await axios.post(
-        "http://localhost:3001/v1/post",
+        `${BASE_URL}/v1/post`,
         formData,
         config
       );

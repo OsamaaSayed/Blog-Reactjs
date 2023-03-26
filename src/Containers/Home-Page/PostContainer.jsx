@@ -7,6 +7,10 @@ import PostCard from "../../Components/shared/PostCard/PostCard";
 import ServerError from "./../../Pages/ServerError/ServerError";
 
 export default function PostContainer() {
+
+  //BACKEND API
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
@@ -20,7 +24,7 @@ export default function PostContainer() {
     async function getPosts() {
       try {
         const { data } = await axios.get(
-          "http://localhost:3001/v1/post?limit=1000"
+          `${BASE_URL}/v1/post?limit=1000`
         );
         setPosts(data.data);
       } catch (error) {
@@ -37,14 +41,14 @@ export default function PostContainer() {
     SetLoading(true);
     try {
       // to delete the post
-      await axios.delete(`http://localhost:3001/v1/post/${postId}`, config);
+      await axios.delete(`${BASE_URL}/v1/post/${postId}`, config);
 
       // Stop button loading
       SetLoading(false);
 
       // to render the new data
       const response = await axios.get(
-        "http://localhost:3001/v1/post?limit=1000"
+        `${BASE_URL}/v1/post?limit=1000`
       );
       setPosts(response.data.data);
 
@@ -94,7 +98,7 @@ export default function PostContainer() {
     try {
       // to edit the data
       await axios.patch(
-        `http://localhost:3001/v1/post/${postId}`,
+        `${BASE_URL}/v1/post/${postId}`,
         formData,
         config
       );
@@ -104,7 +108,7 @@ export default function PostContainer() {
 
       // to render the new data
       const response = await axios.get(
-        "http://localhost:3001/v1/post?limit=1000"
+        `${BASE_URL}/v1/post?limit=1000`
       );
       setPosts(response.data.data);
 
