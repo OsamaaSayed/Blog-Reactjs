@@ -23,7 +23,7 @@ export default function Header() {
   
   return (
     <>
-      <div className=" navbar justify-between bg-neutral-800 drop-shadow-lg">
+      <div className=" navbar justify-between bg-neutral-800 drop-shadow-lg absolute top-0 left-0 right-0 z-[999]">
         <div className="">
 
           <Link

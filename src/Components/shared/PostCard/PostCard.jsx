@@ -32,11 +32,11 @@ export default function PostCard({
   return (
     <>
       {/* *********** Card *********** */}
-      <div className="container w-1/2 mx-auto my-4 overflow-hidden">
+      <div className="container md:w-3/5 lg:w-1/2 mx-auto overflow-hidden">
         <div
           className={`${
             flag ? "md:flex-col" : ""
-          } card md:card-side bg-formColor shadow-xl my-4 justify-center items-center`}
+          } card md:card-side bg-formColor shadow-xl justify-center items-center`}
         >
           <figure className={`${flag ? "md:w-full" : ""} w-full md:w-2/5`}>
             <Link to={`/post/${postId}`} className="w-full">
@@ -108,7 +108,7 @@ export default function PostCard({
           </div>
         </div>
 
-        <div className="divider"></div>
+        <div className="divider my-2"></div>
       </div>
     </>
   );

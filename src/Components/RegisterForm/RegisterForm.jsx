@@ -66,10 +66,10 @@ export default function RegisterForm() {
 
   return (
     <>
-      <div className="h-screen flex justify-center items-center">
+      <div className="flex justify-center items-center mt-28 mb-11">
         <div className="container mx-auto">
           <div className="bg-formColor flex flex-col lg:flex-row w-10/12 lg:w-8/12 rounded-xl mx-auto shadow-xl overflow-hidden">
-            <div className="w-full h-[32rem] lg:w-1/2 bg-signup bg-cover bg-center bg-no-repeat flex justify-center items-center">
+            <div className="w-full h-[35rem] lg:w-1/2 bg-signup bg-cover bg-center bg-no-repeat flex justify-center items-center">
               <div className="text-center">
                 <h1 className="text-white text-3xl">Welcome</h1>
                 <p className="text-white">

@@ -84,9 +84,9 @@ function PostForm() {
 
   return (
     <>
-      <div>
+      <div className="mt-[75px]">
         <div className="md:grid ">
-          <div className="mt-5  md:mt-0">
+          <div className="mt-5 md:mt-0">
             <form onSubmit={handleSubmit(handleSavePost)}>
               <div className="sm:overflow-hidden sm:rounded-md">
                 <div className="space-y-6 px-4 py-5 sm:p-6">

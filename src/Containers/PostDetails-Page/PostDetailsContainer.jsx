@@ -8,10 +8,8 @@ import { ThreeDots } from "react-loader-spinner";
 import ServerError from "../../Pages/ServerError/ServerError";
 
 export default function PostDetailsContainer() {
-
   // BACKEND API
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-
 
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -33,7 +31,6 @@ export default function PostDetailsContainer() {
     async function getPosts() {
       try {
         const { data } = await axios.get(`${BASE_URL}/v1/post/${id}`);
-        console.log(data.data);
         setPost(data.data);
       } catch (error) {
         setError(error);
@@ -92,7 +89,7 @@ export default function PostDetailsContainer() {
     }
   };
 
-  const updatePostHandler = async (data, postId,modal) => {
+  const updatePostHandler = async (data, postId, modal) => {
     // Start button loading
     SetLoading(true);
 
@@ -105,14 +102,14 @@ export default function PostDetailsContainer() {
 
     try {
       // to edit the data
-      await axios.patch(
-        `${BASE_URL}/v1/post/${postId}`,
-        formData,
-        config
-      );
+      await axios.patch(`${BASE_URL}/v1/post/${postId}`, formData, config);
 
       // Stop button loading
       SetLoading(false);
+
+      // to render the new data
+      const {data} = await axios.get(`${BASE_URL}/v1/post/${id}`);
+      setPost(data.data);
 
       // Success pop up
       toast.success("Updated successfully", {
@@ -148,41 +145,42 @@ export default function PostDetailsContainer() {
 
   return (
     <>
-      {Object.keys(post).length ? (
-        <PostCard
-          key={post._id}
-          postId={post._id}
-          title={post.title}
-          content={post.content}
-          photo={post.photo}
-          name={post.user?.username}
-          userPostId={post.user?._id}
-          createdAt={post.createdAt}
-          deletePostHandler={deletePostHandler}
-          updatePostHandler={updatePostHandler}
-          post={post}
-          loading={loading}
-          flag={flag}
-        />
-      ) : !Object.keys(post).length && !error ? (
-        <>
-          <div className="container mx-auto text-cente h-screen flex justify-center items-center">
-            <ThreeDots
-              height="80"
-              width="80"
-              radius="9"
-              color="#661AE6"
-              ariaLabel="three-dots-loading"
-              wrapperStyle={{}}
-              wrapperClassName=""
-              visible={true}
-            />
-          </div>
-        </>
-      ) : (
-        ""
-      )}
-
+      <div className="mt-28 mb-11">
+        {Object.keys(post).length ? (
+          <PostCard
+            key={post._id}
+            postId={post._id}
+            title={post.title}
+            content={post.content}
+            photo={post.photo}
+            name={post.user?.username}
+            userPostId={post.user?._id}
+            createdAt={post.createdAt}
+            deletePostHandler={deletePostHandler}
+            updatePostHandler={updatePostHandler}
+            post={post}
+            loading={loading}
+            flag={flag}
+          />
+        ) : !Object.keys(post).length && !error ? (
+          <>
+            <div className="container mx-auto text-cente h-screen flex justify-center items-center">
+              <ThreeDots
+                height="80"
+                width="80"
+                radius="9"
+                color="#661AE6"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+              />
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+      </div>
       {error ? <ServerError /> : ""}
 
       <ToastContainer

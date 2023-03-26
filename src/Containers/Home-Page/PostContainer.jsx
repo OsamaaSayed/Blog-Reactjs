@@ -7,10 +7,9 @@ import PostCard from "../../Components/shared/PostCard/PostCard";
 import ServerError from "./../../Pages/ServerError/ServerError";
 
 export default function PostContainer() {
-
   //BACKEND API
   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  
+
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
@@ -23,9 +22,7 @@ export default function PostContainer() {
   useEffect(() => {
     async function getPosts() {
       try {
-        const { data } = await axios.get(
-          `${BASE_URL}/v1/post?limit=1000`
-        );
+        const { data } = await axios.get(`${BASE_URL}/v1/post?limit=1000`);
         setPosts(data.data);
       } catch (error) {
         setError(error);
@@ -47,9 +44,7 @@ export default function PostContainer() {
       SetLoading(false);
 
       // to render the new data
-      const response = await axios.get(
-        `${BASE_URL}/v1/post?limit=1000`
-      );
+      const response = await axios.get(`${BASE_URL}/v1/post?limit=1000`);
       setPosts(response.data.data);
 
       // Success pop up
@@ -97,19 +92,13 @@ export default function PostContainer() {
 
     try {
       // to edit the data
-      await axios.patch(
-        `${BASE_URL}/v1/post/${postId}`,
-        formData,
-        config
-      );
+      await axios.patch(`${BASE_URL}/v1/post/${postId}`, formData, config);
 
       // Stop button loading
       SetLoading(false);
 
       // to render the new data
-      const response = await axios.get(
-        `${BASE_URL}/v1/post?limit=1000`
-      );
+      const response = await axios.get(`${BASE_URL}/v1/post?limit=1000`);
       setPosts(response.data.data);
 
       // Success pop up
@@ -146,6 +135,8 @@ export default function PostContainer() {
 
   return (
     <>
+
+  <div className="mt-28 mb-11">
       {posts.length ? (
         posts.map((post) => (
           <PostCard
@@ -163,7 +154,8 @@ export default function PostContainer() {
             loading={loading}
           />
         ))
-      ) : !posts.length && !error ? (
+      )
+       : !posts.length && !error ? (
         <>
           <div className="container mx-auto text-cente h-screen flex justify-center items-center">
             <ThreeDots
@@ -181,6 +173,9 @@ export default function PostContainer() {
       ) : (
         ""
       )}
+      </div>
+
+
 
       {error ? <ServerError /> : ""}
 
