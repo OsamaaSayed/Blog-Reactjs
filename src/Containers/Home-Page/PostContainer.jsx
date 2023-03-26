@@ -97,6 +97,7 @@ export default function PostContainer() {
       // Stop button loading
       SetLoading(false);
 
+      
       // to render the new data
       const response = await axios.get(`${BASE_URL}/v1/post?limit=1000`);
       setPosts(response.data.data);
