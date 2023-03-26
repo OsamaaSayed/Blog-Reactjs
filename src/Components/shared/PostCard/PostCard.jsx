@@ -71,24 +71,14 @@ export default function PostCard({
 
             <div className="card-actions justify-between items-end mt-1">
               <div className="flex justify-center items-end ">
-                <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
-                  <div className="w-14 rounded-full">
-                    {gender === "Male" ? (
-                      <img src={male} />
-                    ) : gender === "Female" ? (
-                      <img src={female} />
-                    ) : (
-                      <img src={unknown} />
-                    )}
-                  </div>
-                </label>
-
+                
                 <div className="flex flex-col justify-center">
                   <span className="text-gray-300 text-sm capitalize">
                     {name}
                   </span>
                   <span className="text-gray-400 text-xs">{swapDate}</span>
                 </div>
+                
               </div>
 
               {userPostId === userId ? (

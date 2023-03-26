@@ -36,9 +36,9 @@ export default function LoginForm() {
       );
       console.log(data);
       const token = data.data.access_token;
-      const userId = data.data.userBody._id;
-      const username = data.data.userBody.username;
-      const gender = data.data.userBody.gender;
+      const userId = data.data.user._id;
+      const username = data.data.user.username;
+      const gender = data.data.user.gender;
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
       localStorage.setItem("username", username);
@@ -47,7 +47,6 @@ export default function LoginForm() {
       navigate("/");
     } catch (error) {
       setLoading(false);
-
       toast.error(`${error.response.data.message} 😞`, {
         position: "top-right",
         autoClose: false,
