@@ -32,7 +32,7 @@ export default function PostCard({
   return (
     <>
       {/* *********** Card *********** */}
-      <div className="container w-[700px] mx-auto my-4 overflow-hidden">
+      <div className="container w-3/5 mx-auto my-4 overflow-hidden">
         <div
           className={`${
             flag ? "md:flex-col" : ""

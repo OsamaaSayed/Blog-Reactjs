@@ -7,9 +7,9 @@ import Login from "./Pages/Login/Login";
 import AddPost from "./Pages/AddPost/AddPost";
 import NotFound from "./Pages/NotFound/NotFound";
 import PrivateRoutes from "./Utils/PrivateRoutes/PrivateRoutes";
+import PostDetails from "./Pages/PostDetails/PostDetails";
 
 import "./App.css";
-import PostDetails from "./Pages/PostDetails/PostDetails";
 
 function App() {
   return (
