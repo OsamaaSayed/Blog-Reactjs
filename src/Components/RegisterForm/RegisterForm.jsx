@@ -8,7 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.min.css";
 
-import Background from '/signup.jpeg'
+import Background from '../../assets/Images/signup.jpeg'
 
 export default function RegisterForm() {
   // BACKEND API
