@@ -7,7 +7,7 @@ export default function NotFound() {
       <div className="hero min-h-screen">
         <div className="container">
           <div className="flex justify-center items-center flex-col">
-            <img className="w-96" src="src/assets/404.svg" alt="" />
+            <img className="w-96" src="/404.svg" alt="" />
             <Link to="/" className="btn btn-primary">
               Home
             </Link>
