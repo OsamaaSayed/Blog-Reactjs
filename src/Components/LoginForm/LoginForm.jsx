@@ -8,10 +8,11 @@ import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.min.css";
 
+// BACKEND API
+import { BASE_URL } from './../../Service/API';
+
 export default function LoginForm() {
 
-  // BACKEND API
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   // ********** States ***********
   const [loading, setLoading] = useState(false);

@@ -6,9 +6,11 @@ import { toast, ToastContainer } from "react-toastify";
 import PostCard from "../../Components/shared/PostCard/PostCard";
 import ServerError from "./../../Pages/ServerError/ServerError";
 
+// BACKEND API
+import { BASE_URL } from './../../Service/API';
+
 export default function PostContainer() {
-  //BACKEND API
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };

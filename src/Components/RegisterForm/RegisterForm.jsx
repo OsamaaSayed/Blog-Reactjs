@@ -8,10 +8,13 @@ import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.min.css";
 
+// BACKEND API
+import { BASE_URL } from './../../Service/API';
+
 
 export default function RegisterForm() {
   // BACKEND API
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
   // ********** States ***********
   const [loading, setLoading] = useState(false);
@@ -70,7 +73,7 @@ export default function RegisterForm() {
       <div className="flex justify-center items-center mt-28 mb-11">
         <div className="container mx-auto">
           <div className="bg-formColor flex flex-col lg:flex-row w-10/12 lg:w-8/12 rounded-xl mx-auto shadow-xl overflow-hidden">
-            <div  className="signupImg w-full h-[35rem] lg:w-1/2 bg-cover bg-center bg-no-repeat flex justify-center items-center">
+            <div  className=" w-full h-[35rem] lg:w-1/2 bg-signup bg-cover bg-center bg-no-repeat flex justify-center items-center">
               <div className="text-center">
                 <h1 className="text-white text-3xl">Welcome</h1>
                 <p className="text-white">

@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
+//BACKEND
+import { BASE_URL } from './../../Service/API';
+
+
 function PostForm() {
 
-  //BACKEND API
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
   
   const token = localStorage.getItem("token");
 

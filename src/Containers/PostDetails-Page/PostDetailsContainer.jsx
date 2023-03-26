@@ -7,9 +7,12 @@ import { ToastContainer, toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
 import ServerError from "../../Pages/ServerError/ServerError";
 
+//BACKEND 
+import { BASE_URL } from './../../Service/API';
+
+
 export default function PostDetailsContainer() {
-  // BACKEND API
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
