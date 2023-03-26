@@ -1,5 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-
+import male from '/male.svg'
+import female from '/female.svg'
+import unknown from '/unknown.svg'
 
 
 export default function Header() {
@@ -53,8 +55,8 @@ export default function Header() {
 
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
               <div className="w-14 rounded-full">
-                {gender==='Male'? <img src="/src/assets/male.svg" />
-                 : gender==='Female'? <img src="/src/assets/female.svg" /> :<img src="/src/assets/unknown.svg" />}
+                {gender==='Male'? <img src={male} />
+                 : gender==='Female'? <img src={female} /> :<img src={unknown}/>}
               </div>
             </label>
             

@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import DeleteCard from "../DeleteCard/DeleteCard";
 import EditCard from "./../EditCard/EditCard";
 
+import male from '/male.svg'
+import female from '/female.svg'
+import unknown from '/unknown.svg'
+
 export default function PostCard({
   title,
   content,
@@ -70,11 +74,11 @@ export default function PostCard({
                 <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                   <div className="w-14 rounded-full">
                     {gender === "Male" ? (
-                      <img src="/src/assets/male.svg" />
+                      <img src={male} />
                     ) : gender === "Female" ? (
-                      <img src="/src/assets/female.svg" />
+                      <img src={female} />
                     ) : (
-                      <img src="/src/assets/unknown.svg" />
+                      <img src={unknown} />
                     )}
                   </div>
                 </label>

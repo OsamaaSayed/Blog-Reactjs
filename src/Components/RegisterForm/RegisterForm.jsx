@@ -8,6 +8,8 @@ import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.min.css";
 
+
+
 export default function RegisterForm() {
   // BACKEND API
   const BASE_URL = import.meta.env.VITE_BASE_URL;
