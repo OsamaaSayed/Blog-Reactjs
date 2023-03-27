@@ -8,7 +8,6 @@ import ServerError from "./../../Pages/ServerError/ServerError";
 
 // BACKEND API
 import { BASE_URL } from './../../Service/API';
-
 export default function PostContainer() {
 
 
@@ -28,6 +27,7 @@ export default function PostContainer() {
         setPosts(data.data);
       } catch (error) {
         setError(error);
+        console.log(error);
       }
     }
 

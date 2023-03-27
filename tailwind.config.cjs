@@ -9,7 +9,7 @@ module.exports = {
       },
 
       backgroundImage: {
-        'signup': "url('src/assets/Images/signup.jpeg')"
+        'signup': "url('/src/assets/Images/background.jpeg')"
       }
     },
   },

@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import DeleteCard from "../DeleteCard/DeleteCard";
 import EditCard from "./../EditCard/EditCard";
 
-import male from '/male.svg'
-import female from '/female.svg'
-import unknown from '/unknown.svg'
+
 
 export default function PostCard({
   title,
