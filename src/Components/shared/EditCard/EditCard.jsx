@@ -115,7 +115,7 @@ export default function EditCard({ postId, post, updatePostHandler, loading }) {
               id="photo"
               // value={photoInput}
               accept="image/jpg, image/png , image/jpeg"
-              className="file-input file-input-bordered rounded-none w-full focus:outline-none border-gray-200 "
+              className="file-input file-input-bordered rounded-none w-full focus:outline-none border-gray-200 my-2"
             />
             <p className="text-red-600">{errors.photo?.message}</p>
 

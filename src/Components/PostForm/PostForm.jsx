@@ -131,7 +131,7 @@ function PostForm() {
                         id="description"
                         name="content"
                         rows={3}
-                        className="resize-none bg-transparent border-gray-200 mt-1 block w-full rounded-md border input-bordered sm:p-1.5 sm:text-sm sm:leading-6 focus:outline-none"
+                        className="resize-none bg-transparent border-gray-200 mt-1 block w-full rounded-md border input-bordered p-4 leading-5 focus:outline-none"
                         placeholder="Brief description for your post"
                       />
                       <p className="text-red-600">{errors.content?.message}</p>
@@ -170,13 +170,13 @@ function PostForm() {
                               id="file-upload"
                               name="photo"
                               type="file"
-                              accept="image/jpg, image/jpeg , image/png"
+                              accept="image/*"
                               className="sr-only"
                             />
                           </label>
                           <p className="pl-1">or drag and drop</p>
                         </div>
-                        <p className="text-xs text-gray-300">PNG, JPG, JPEG</p>
+                        
                       </div>
                     </div>
 

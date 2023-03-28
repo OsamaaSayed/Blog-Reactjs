@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRef } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { toast, ToastContainer } from "react-toastify";
@@ -7,12 +8,16 @@ import PostCard from "../../Components/shared/PostCard/PostCard";
 import ServerError from "./../../Pages/ServerError/ServerError";
 
 // BACKEND API
-import { BASE_URL } from './../../Service/API';
+import { BASE_URL } from "./../../Service/API";
+
 export default function PostContainer() {
-
-
   const token = localStorage.getItem("token");
+  const name = localStorage.getItem("username");
   const config = { headers: { Authorization: `Bearer ${token}` } };
+
+  
+  // reference for scrolling to section
+  const sectionRef = useRef();
 
   // ---------------- States ----------------
   const [posts, setPosts] = useState([]);
@@ -99,7 +104,6 @@ export default function PostContainer() {
       // Stop button loading
       SetLoading(false);
 
-      
       // to render the new data
       const response = await axios.get(`${BASE_URL}/v1/post?limit=1000`);
       setPosts(response.data.data);
@@ -138,27 +142,55 @@ export default function PostContainer() {
 
   return (
     <>
-
-  <div className="mt-28 mb-11">
       {posts.length ? (
-        posts.map((post) => (
-          <PostCard
-            key={post._id}
-            postId={post._id}
-            title={post.title.substring(0, 50) + "..."}
-            content={post.content.substring(0, 70) + "..."}
-            photo={post.photo}
-            name={post.user?.username}
-            userPostId={post.user?._id}
-            createdAt={post.createdAt}
-            deletePostHandler={deletePostHandler}
-            updatePostHandler={updatePostHandler}
-            post={post}
-            loading={loading}
-          />
-        ))
-      )
-       : !posts.length && !error ? (
+        <>
+          {/* // Header */}
+          <div className="hero min-h-screen bg-bgHome mb-12">
+            <div className="hero-overlay bg-opacity-60"></div>
+            <div className="hero-content text-center text-neutral-content">
+              <div className="max-w-md">
+                <h1 className="mb-5 text-5xl font-bold text-white">
+                  Hello {name?.split(" ")[0]}
+                </h1>
+                <p className="mb-5">
+                  Welcome to ReactBlog! We're excited to have you here.
+                </p>
+                <button
+                  onClick={() => {
+                    sectionRef.current.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className=" btn btn-primary"
+                >
+                  Get Started
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Card */}
+          <div
+            ref={sectionRef}
+            className=" w-[95%] mx-auto grid gap-x-6 gap-y-1 justify-center items-center 2xsm:grid-cols-1  md:grid-cols-3"
+          >
+            {posts.map((post) => (
+              <PostCard
+                key={post._id}
+                postId={post._id}
+                title={post.title.substring(0, 70) + "..."}
+                content={post.content.substring(0, 100) + "..."}
+                photo={post.photo}
+                name={post.user?.username}
+                userPostId={post.user?._id}
+                createdAt={post.createdAt}
+                deletePostHandler={deletePostHandler}
+                updatePostHandler={updatePostHandler}
+                post={post}
+                loading={loading}
+              />
+            ))}
+          </div>
+        </>
+      ) : !posts.length && !error ? (
         <>
           <div className="container mx-auto text-cente h-screen flex justify-center items-center">
             <ThreeDots
@@ -176,9 +208,6 @@ export default function PostContainer() {
       ) : (
         ""
       )}
-      </div>
-
-
 
       {error ? <ServerError /> : ""}
 

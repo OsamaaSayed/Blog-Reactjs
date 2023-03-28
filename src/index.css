@@ -6,6 +6,9 @@
     --tw-bg-opacity: 1;
     background-color: rgb(38 38 38 / var(--tw-bg-opacity));
     color: white;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .menu :where(li:not(.menu-title):not(:empty))> :where(:not(ul).active),
@@ -22,14 +25,18 @@
 .menu[class^="px-"]:not(.menu[class^="px-0"]) li>*,
 .menu[class*=" p-"]:not(.menu[class*=" p-0"]) li>*,
 .menu[class^="p-"]:not(.menu[class^="p-0"]) li>* {
-
     border-radius: 0px;
-
 }
 
 .menu :where(li:not(.menu-title):not(:empty))> :where(*:not(ul):focus),
 .menu :where(li:not(.menu-title):not(:empty))> :where(*:not(ul):hover) {
     background-color: transparent;
-
 }
 
+.card figure {
+    display: block;
+}
+
+.card-compact .card-title {
+    margin-bottom: 0.5rem;
+}

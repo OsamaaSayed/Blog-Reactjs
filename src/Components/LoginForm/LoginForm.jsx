@@ -66,8 +66,8 @@ export default function LoginForm() {
   return (
     <>
       <div className="flex justify-center items-center mt-28 mb-11">
-        <div className="container mx-auto">
-          <div className="bg-formColor flex flex-col-reverse lg:flex-row w-10/12 lg:w-8/12 rounded-xl mx-auto shadow-xl overflow-hidden">
+        <div className="w-[90%] mx-auto">
+          <div className="bg-formColor flex flex-col-reverse lg:flex-row lg:w-[75%] rounded-xl mx-auto shadow-xl overflow-hidden">
             <div className="w-full h-[32rem] lg:w-1/2 py-12 px-12 ">
               <h2 className="text-3xl mb-4">Login</h2>
               <p className="mb-4">Enter with your account</p>
@@ -92,8 +92,8 @@ export default function LoginForm() {
                       required: "Password is required",
                       minLength: { value: 5, message: "Min length is 5" },
                     })}
-                    type="text"
-                    placeholder="Password"
+                    type="password"
+                    placeholder="********"
                     name="password"
                     className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded"
                   />
@@ -117,8 +117,8 @@ export default function LoginForm() {
               </form>
             </div>
 
-            <div className="w-full h-[32rem] lg:w-1/2 bg-signup bg-cover bg-center bg-no-repeat flex justify-center items-center">
-              <div className="text-center">
+            <div className="w-full h-[32rem] lg:w-1/2 bg-bgImg bg-cover bg-center bg-no-repeat flex justify-center items-center">
+              <div className="text-center px-[10px] leading-5">
                 <h1 className="text-white text-3xl">Welcome Back</h1>
                 <p className="text-white">
                   Explore Learn Inspire, Your Destination for Insightful

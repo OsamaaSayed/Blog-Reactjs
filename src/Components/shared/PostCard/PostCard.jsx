@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import DeleteCard from "../DeleteCard/DeleteCard";
 import EditCard from "./../EditCard/EditCard";
 
-
-
 export default function PostCard({
   title,
   content,
@@ -19,9 +17,7 @@ export default function PostCard({
   post,
   loading,
 }) {
-  
   const userId = localStorage.getItem("userId");
-  const gender = localStorage.getItem("gender");
 
   // -- to get the image object --
   const [image] = photo;
@@ -34,49 +30,44 @@ export default function PostCard({
   return (
     <>
       {/* *********** Card *********** */}
-      <div className="container md:w-3/5 lg:w-1/2 mx-auto overflow-hidden">
-        <div
-          className={`${
-            flag ? "md:flex-col" : ""
-          } card md:card-side bg-formColor shadow-xl justify-center items-center`}
-        >
-          <figure className={`${flag ? "md:w-full" : ""} w-full md:w-2/5`}>
-            <Link to={`/post/${postId}`} className="w-full">
+      <div className="w-[90%] mx-auto">
+        <div className={`card card-compact h-[448px] bg-formColor shadow-xl overflow-hidden w-full ${flag? "mx-auto w-full h-auto" : ''}`}>
+
+          <figure >
+            <Link to={`/post/${postId}`}>
               <img
-                className="w-full h-[23rem] object-cover"
+                className={`w-full h-[260px] object-cover rounded-tl-2xl rounded-tr-2xl hover:scale-110 transition-all duration-200 ease-in-out ${flag? "h-[300px]" : ''}`}
                 src={image.url}
-                alt="Album"
+                alt="blog"
               />
             </Link>
           </figure>
 
-          <div
-            className={`${
-              flag ? "md:w-full" : ""
-            } card-body w-full justify-evenly md:w-3/5 overflow-hidden`}
-          >
-            <div>
-              <Link to={`/post/${postId}`}>
-                <h2 className="card-title">{title}</h2>
-              </Link>
-            </div>
 
+
+          <div className="card-body justify-between">
             <div>
-              <Link to={`/post/${postId}`}>
-                <p className="flex-grow-0">{content}</p>
-              </Link>
+              <div>
+                <Link to={`/post/${postId}`}>
+                  <h2 className="card-title mb-2 hover:text-gray-300 transition-all duration-200 ease-in-out">{title}</h2>
+                </Link>
+              </div>
+
+              <div>
+                <Link to={`/post/${postId}`}>
+                  <p className="flex-grow-0 font-light">{content}</p>
+                </Link>
+              </div>
             </div>
 
             <div className="card-actions justify-between items-end mt-1">
               <div className="flex justify-center items-end ">
-                
                 <div className="flex flex-col justify-center">
                   <span className="text-gray-300 text-sm capitalize">
                     {name}
                   </span>
                   <span className="text-gray-400 text-xs">{swapDate}</span>
                 </div>
-                
               </div>
 
               {userPostId === userId ? (
@@ -98,11 +89,12 @@ export default function PostCard({
               )}
             </div>
           </div>
+
         </div>
 
-        <div className="divider my-2"></div>
+        <div className={`divider mt-2 mb-0 w-[95%] ${flag? "w-[90%] mx-auto" : ''}`}></div>
       </div>
+
     </>
   );
 }
-

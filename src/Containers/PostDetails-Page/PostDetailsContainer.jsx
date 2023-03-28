@@ -148,7 +148,7 @@ export default function PostDetailsContainer() {
 
   return (
     <>
-      <div className="mt-28 mb-11">
+      <div className="w-full mx-auto mt-28 mb-11">
         {Object.keys(post).length ? (
           <PostCard
             key={post._id}
