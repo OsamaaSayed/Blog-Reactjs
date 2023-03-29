@@ -12,10 +12,10 @@ export default function PostCard({
   photo,
   flag,
   userPostId,
-  deletePostHandler,
-  updatePostHandler,
+  handleDeletePost,
   post,
   loading,
+  handleEditClick
 }) {
   const userId = localStorage.getItem("userId");
 
@@ -30,26 +30,31 @@ export default function PostCard({
   return (
     <>
       {/* *********** Card *********** */}
-      <div className="w-[90%] mx-auto">
-        <div className={`card card-compact h-[448px] bg-formColor shadow-xl overflow-hidden w-full ${flag? "mx-auto w-full h-auto" : ''}`}>
-
-          <figure >
+      <div className={`2xsm:w-[90%] mx-auto md:w-full ${flag? "md:w-[90%]" : '' }`}>
+        <div
+          className={`card card-compact h-[448px] bg-formColor shadow-xl overflow-hidden w-full ${
+            flag ? "mx-auto w-full h-auto" : ""
+          }`}
+        >
+          <figure>
             <Link to={`/post/${postId}`}>
               <img
-                className={`w-full h-[260px] object-cover rounded-tl-2xl rounded-tr-2xl hover:scale-110 transition-all duration-200 ease-in-out ${flag? "h-[300px]" : ''}`}
+                className={`w-full h-[260px] object-cover rounded-tl-2xl rounded-tr-2xl hover:scale-110 transition-all duration-200 ease-in-out ${
+                  flag ? "h-[300px]" : ""
+                }`}
                 src={image.url}
                 alt="blog"
               />
             </Link>
           </figure>
 
-
-
           <div className="card-body justify-between">
             <div>
               <div>
                 <Link to={`/post/${postId}`}>
-                  <h2 className="card-title mb-2 hover:text-gray-300 transition-all duration-200 ease-in-out">{title}</h2>
+                  <h2 className="card-title mb-2 hover:text-gray-300 transition-all duration-200 ease-in-out">
+                    {title}
+                  </h2>
                 </Link>
               </div>
 
@@ -73,14 +78,15 @@ export default function PostCard({
               {userPostId === userId ? (
                 <div className="flex gap-2">
                   <EditCard
-                    postId={postId}
-                    updatePostHandler={updatePostHandler}
+                    key={postId}
                     post={post}
-                    loading={loading}
+                    postId={postId}
+                    handleEditClick={handleEditClick}
                   />
                   <DeleteCard
+
                     postId={postId}
-                    deletePostHandler={deletePostHandler}
+                    handleDeletePost={handleDeletePost}
                     loading={loading}
                   />
                 </div>
@@ -89,12 +95,14 @@ export default function PostCard({
               )}
             </div>
           </div>
-
         </div>
 
-        <div className={`divider mt-2 mb-0 w-[95%] ${flag? "w-[90%] mx-auto" : ''}`}></div>
+        <div
+          className={`divider mt-2 mb-0 w-[95%] ${
+            flag ? "w-[90%] mx-auto" : ""
+          }`}
+        ></div>
       </div>
-
     </>
   );
 }

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useRef } from "react";
 import axios from "axios";
+import { useRef } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { toast, ToastContainer } from "react-toastify";
+import ScrollToTop from "react-scroll-up";
 
 import PostCard from "../../Components/shared/PostCard/PostCard";
+import Modal from "./../../Components/Modal/Modal";
 import ServerError from "./../../Pages/ServerError/ServerError";
 
-// BACKEND API
+// ------ BACKEND API --------
 import { BASE_URL } from "./../../Service/API";
 
 export default function PostContainer() {
@@ -15,7 +17,6 @@ export default function PostContainer() {
   const name = localStorage.getItem("username");
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
-  
   // reference for scrolling to section
   const sectionRef = useRef();
 
@@ -23,6 +24,8 @@ export default function PostContainer() {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, SetLoading] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [postId, setPostId] = useState(null);
 
   // ---------------- Effects ----------------
   useEffect(() => {
@@ -40,7 +43,7 @@ export default function PostContainer() {
   }, []);
 
   // --------------- Handlers ----------------
-  const deletePostHandler = async (postId, modal) => {
+  const handleDeletePost = async (postId, modal) => {
     // Start button loading
     SetLoading(true);
     try {
@@ -86,7 +89,7 @@ export default function PostContainer() {
     }
   };
 
-  const updatePostHandler = async (data, postId, modal) => {
+  const handleUpdatePost = async (data, postId) => {
     // Start button loading
     SetLoading(true);
 
@@ -119,9 +122,6 @@ export default function PostContainer() {
         progress: undefined,
         theme: "dark",
       });
-
-      // Clsoe Modal
-      modal.style.display = "none";
     } catch (error) {
       // Stop button loading
       SetLoading(false);
@@ -138,6 +138,16 @@ export default function PostContainer() {
         theme: "dark",
       });
     }
+  };
+
+  const handleEditClick = (event, post, postId) => {
+    event.target.classList.add("modal-open");
+    setSelectedCard(post);
+    setPostId(postId);
+  };
+
+  const handleCloseClick = () => {
+    setSelectedCard(null);
   };
 
   return (
@@ -176,14 +186,15 @@ export default function PostContainer() {
               <PostCard
                 key={post._id}
                 postId={post._id}
-                title={post.title.substring(0, 70) + "..."}
-                content={post.content.substring(0, 100) + "..."}
+                title={post.title.substring(0, 50) + "..."}
+                content={post.content.substring(0, 70) + "..."}
                 photo={post.photo}
                 name={post.user?.username}
                 userPostId={post.user?._id}
                 createdAt={post.createdAt}
-                deletePostHandler={deletePostHandler}
-                updatePostHandler={updatePostHandler}
+                handleDeletePost={handleDeletePost}
+                handleUpdatePost={handleUpdatePost}
+                handleEditClick={handleEditClick}
                 post={post}
                 loading={loading}
               />
@@ -224,6 +235,45 @@ export default function PostContainer() {
         pauseOnHover={false}
         theme="dark"
       />
+
+      {/* ------- Button to scroll to top --------- */}
+      <ScrollToTop
+        showUnder={200}
+        duration={500}
+        style={{
+          transitionDuration: "0.3s",
+          transitionTimingFunction: "linear",
+          transitionDelay: "0s",
+        }}
+      >
+        <button className="transition-all duration-200 ease-in-out hover:text-primary">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="w-8 h-8"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75"
+            />
+          </svg>
+        </button>
+      </ScrollToTop>
+
+      {/* ------- to open Modal ---------- */}
+      {selectedCard && (
+        <Modal
+          postId={postId}
+          handleUpdatePost={handleUpdatePost}
+          selectedCard={selectedCard}
+          handleCloseClick={handleCloseClick}
+          loading={loading}
+        />
+      )}
     </>
   );
 }

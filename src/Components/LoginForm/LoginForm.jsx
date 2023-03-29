@@ -84,7 +84,7 @@ export default function LoginForm() {
                     type="email"
                     placeholder="example@mail.com"
                     name="email"
-                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded"
+                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.email?'border border-red-600 focus:outline-none' : ""}`}
                   />
                   <p className="text-red-600">{errors.email?.message}</p>
                   <input
@@ -95,7 +95,7 @@ export default function LoginForm() {
                     type="password"
                     placeholder="********"
                     name="password"
-                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded"
+                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.password?'border border-red-600 focus:outline-none' : ""}`}
                   />
                   <p className="text-red-600">{errors.password?.message}</p>
 

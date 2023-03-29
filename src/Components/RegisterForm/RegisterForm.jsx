@@ -83,7 +83,7 @@ export default function RegisterForm() {
                 </p>
               </div>
             </div>
-            <div className="w-full lg:w-1/2 py-4 px-12 h-[32rem]">
+            <div className="w-full lg:w-1/2 py-4 px-12 h-[35rem]">
               <h2 className="text-3xl mb-4">Register</h2>
               <p className="mb-4">Create your account</p>
               <form onSubmit={handleSubmit(registerHandler)}>
@@ -97,7 +97,7 @@ export default function RegisterForm() {
                     type="text"
                     placeholder="Full Name"
                     name="username"
-                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded"
+                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.username?'border border-red-600 focus:outline-none' : ""}`}
                   />
                   <p className="text-red-600">{errors.username?.message}</p>
                   <input
@@ -111,7 +111,7 @@ export default function RegisterForm() {
                     type="email"
                     placeholder="example@mail.com"
                     name="email"
-                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded"
+                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.email?'border border-red-600 focus:outline-none' : ""}`}
                   />
                   <p className="text-red-600">{errors.email?.message}</p>
                   <input
@@ -122,7 +122,7 @@ export default function RegisterForm() {
                     type="password"
                     placeholder="********"
                     name="password"
-                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded"
+                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.password?'border border-red-600 focus:outline-none' : ""}`}
                   />
                   <p className="text-red-600">{errors.password?.message}</p>
                   <input
@@ -130,7 +130,7 @@ export default function RegisterForm() {
                     type="password"
                     placeholder="********"
                     name="confirm_password"
-                    className="w-full border border-gray-400 py-1 px-2 bg-transparent rounded"
+                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.confirm_password?'border border-red-600 focus:outline-none' : ""}`}
                   />
                   {watch("confirm_password") !== watch("password") &&
                   getValues("confirm_password") ? (

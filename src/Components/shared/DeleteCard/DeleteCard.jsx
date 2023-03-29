@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function DeleteCard({ postId, deletePostHandler, loading }) {
+export default function DeleteCard({ postId, handleDeletePost, loading }) {
   // -------States -----------
   let [modal, setModal] = useState(null);
 
@@ -47,7 +47,7 @@ export default function DeleteCard({ postId, deletePostHandler, loading }) {
               No
             </label>
             <button
-              onClick={() => deletePostHandler(postId, modal)}
+              onClick={() => handleDeletePost(postId, modal)}
               htmlFor="my-modal"
               className={`${
                 loading ? "loading" : ""

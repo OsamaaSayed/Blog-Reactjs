@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import PostCard from "../../Components/shared/PostCard/PostCard";
-import { ToastContainer, toast } from "react-toastify";
-
 import { ThreeDots } from "react-loader-spinner";
+import { toast , ToastContainer } from "react-toastify";
+
+import PostCard from "../../Components/shared/PostCard/PostCard";
+import Modal from "./../../Components/Modal/Modal";
 import ServerError from "../../Pages/ServerError/ServerError";
 
-//BACKEND 
-import { BASE_URL } from './../../Service/API';
-
+// ------ BACKEND API --------
+import { BASE_URL } from "./../../Service/API";
 
 export default function PostDetailsContainer() {
-
-
   const token = localStorage.getItem("token");
   const config = { headers: { Authorization: `Bearer ${token}` } };
   const navigate = useNavigate();
@@ -28,7 +26,9 @@ export default function PostDetailsContainer() {
   const [post, setPost] = useState({});
   const [error, setError] = useState(null);
   const [loading, SetLoading] = useState(false);
-
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [postId, setPostId] = useState(null);
+  
   // ---------------- Effects ----------------
   useEffect(() => {
     async function getPosts() {
@@ -45,7 +45,7 @@ export default function PostDetailsContainer() {
   }, []);
 
   // --------------- Handlers ----------------
-  const deletePostHandler = async (postId, modal) => {
+  const handleDeletePost = async (postId, modal) => {
     // Start button loading
     SetLoading(true);
     try {
@@ -92,7 +92,7 @@ export default function PostDetailsContainer() {
     }
   };
 
-  const updatePostHandler = async (data, postId, modal) => {
+  const handleUpdatePost = async (data, postId, modal) => {
     // Start button loading
     SetLoading(true);
 
@@ -111,7 +111,7 @@ export default function PostDetailsContainer() {
       SetLoading(false);
 
       // to render the new data
-      const {data} = await axios.get(`${BASE_URL}/v1/post/${id}`);
+      const { data } = await axios.get(`${BASE_URL}/v1/post/${id}`);
       setPost(data.data);
 
       // Success pop up
@@ -146,6 +146,16 @@ export default function PostDetailsContainer() {
     }
   };
 
+  const handleEditClick = (event, post, postId) => {
+    event.target.classList.add("modal-open");
+    setSelectedCard(post);
+    setPostId(postId);
+  };
+
+  const handleCloseClick = () => {
+    setSelectedCard(null);
+  };
+
   return (
     <>
       <div className="w-full mx-auto mt-28 mb-11">
@@ -159,8 +169,9 @@ export default function PostDetailsContainer() {
             name={post.user?.username}
             userPostId={post.user?._id}
             createdAt={post.createdAt}
-            deletePostHandler={deletePostHandler}
-            updatePostHandler={updatePostHandler}
+            handleDeletePost={handleDeletePost}
+            handleUpdatePost={handleUpdatePost}
+            handleEditClick={handleEditClick}
             post={post}
             loading={loading}
             flag={flag}
@@ -199,6 +210,17 @@ export default function PostDetailsContainer() {
         pauseOnHover={false}
         theme="dark"
       />
+
+      {/* ------- to open Modal ---------- */}
+      {selectedCard && (
+        <Modal
+          postId={postId}
+          handleUpdatePost={handleUpdatePost}
+          selectedCard={selectedCard}
+          handleCloseClick={handleCloseClick}
+          loading={loading}
+        />
+      )}
     </>
   );
 }
