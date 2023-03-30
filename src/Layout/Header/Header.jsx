@@ -54,13 +54,26 @@ export default function Header() {
 
           <div className="dropdown dropdown-end mr-4">
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
-              <div className="w-14 rounded-full">
+              <div className="rounded-full">
                 {gender === "Male" ? (
                   <img src="/male.svg" />
                 ) : gender === "Female" ? (
                   <img src="/female.svg" />
                 ) : (
-                  <img src="/unknown.svg" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                    />
+                  </svg>
                 )}
               </div>
             </label>
@@ -69,7 +82,6 @@ export default function Header() {
               tabIndex="0"
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-neutral-800 rounded-box w-52"
             >
-
               <div className="block md:hidden">
                 <li onClick={handleClick}>
                   <Link to="/">Home</Link>

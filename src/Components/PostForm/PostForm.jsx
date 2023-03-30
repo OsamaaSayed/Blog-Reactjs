@@ -10,7 +10,6 @@ import { BASE_URL } from "./../../Service/API";
 
 function PostForm() {
   const token = localStorage.getItem("token");
-
   // -------- States ---------
   const [imageUrl, setImage] = useState(null);
   const [loading, SetLoading] = useState(false);
@@ -216,12 +215,21 @@ function PostForm() {
                   </div>
                 </div>
 
-                <div className=" px-4 py-3 text-right sm:px-6">
-                  <button disabled={isErrorFile}
+                <div className="flex items-center justify-end gap-2 px-4 py-3 text-right sm:px-6">
+                  <button
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                    className="btn capitalize px-[10px]"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    disabled={isErrorFile}
                     type="submit"
                     className={`${loading ? "loading" : ""} 
                       
-                     text-white btn btn-primary capitalize text-sm cursor-pointer`}
+                     text-white btn btn-primary capitalize text-base`}
                   >
                     Post
                   </button>
@@ -232,7 +240,6 @@ function PostForm() {
         </div>
       </div>
 
-      
       <ToastContainer
         position="top-right"
         autoClose={1500}

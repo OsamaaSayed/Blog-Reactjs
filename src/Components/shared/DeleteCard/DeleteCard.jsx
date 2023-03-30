@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function DeleteCard({ postId, handleDeletePost, loading }) {
+export default function DeleteCard({ postId, handleDeletePost, loading , handleDeleteClick }) {
   // -------States -----------
   let [modal, setModal] = useState(null);
 
@@ -12,7 +12,7 @@ export default function DeleteCard({ postId, handleDeletePost, loading }) {
   return (
     <>
       {/* The button to open modal */}
-      <label
+      <label onClick={()=>handleDeleteClick(postId)}
         htmlFor="my-modal"
         className="text-red-600 hover:text-red-500 cursor-pointer"
       >

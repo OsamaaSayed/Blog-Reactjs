@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import DeleteCard from "../DeleteCard/DeleteCard";
@@ -17,6 +17,7 @@ export default function PostCard({
   post,
   loading,
   handleEditClick,
+  handleDeleteClick
 }) {
   const userId = localStorage.getItem("userId");
 
@@ -28,14 +29,11 @@ export default function PostCard({
   date = date.toDateString().substring(4);
   const swapDate = date.replace(/(\w+)\s(\w+)/, "$2 $1,");
 
-  
   return (
     <>
       {/* *********** Card *********** */}
       <div
-        className={`mx-auto md:w-full ${
-          flag ? "2xsm:w-full" : "2xsm:w-[90%]"
-        }`}
+        className={`mx-auto md:w-full ${flag ? "2xsm:w-full" : "2xsm:w-[90%]"}`}
       >
         <div
           className={`card card-compact h-[448px] bg-formColor shadow-xl overflow-hidden w-full ${
@@ -49,9 +47,7 @@ export default function PostCard({
               </h2>
             </Link>
             <span className="text-sm text-gray-300">By</span>{" "}
-            <span className=" text-lg capitalize text-gray-300">
-              {name}
-            </span>
+            <span className=" text-lg capitalize text-gray-300">{name}</span>
             <h6 className="text-sm text-gray-500">{swapDate}</h6>
           </div>
 
@@ -79,12 +75,22 @@ export default function PostCard({
 
               <div>
                 <Link to={`/post/${postId}`}>
-                  <p className={`flex-grow-0 font-light ${flag?"2xsm:text-lg md:text-base":""}`}>{content}</p>
+                  <p
+                    className={`flex-grow-0 font-light ${
+                      flag ? "2xsm:text-lg md:text-base" : ""
+                    }`}
+                  >
+                    {content}
+                  </p>
                 </Link>
               </div>
             </div>
 
-            <div className={`card-actions items-end mt-1 ${flag? "justify-end" : "justify-between"}`}>
+            <div
+              className={`card-actions items-end mt-1 ${
+                flag ? "justify-end" : "justify-between"
+              }`}
+            >
               <div
                 className={`flex justify-center items-end ${
                   flag ? "hidden" : "visible"
@@ -107,9 +113,11 @@ export default function PostCard({
                     handleEditClick={handleEditClick}
                   />
                   <DeleteCard
+                    key={postId + 1}
                     postId={postId}
                     handleDeletePost={handleDeletePost}
                     loading={loading}
+                    handleDeleteClick={handleDeleteClick}
                   />
                 </div>
               ) : (

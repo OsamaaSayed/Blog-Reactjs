@@ -17,9 +17,7 @@ export default function PostContainer() {
   const name = localStorage.getItem("username");
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
-  // reference for scrolling to section
-  const sectionRef = useRef();
-
+  
   // ---------------- States ----------------
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
@@ -44,6 +42,7 @@ export default function PostContainer() {
 
   // --------------- Handlers ----------------
   const handleDeletePost = async (postId, modal) => {
+    console.log(postId);
     // Start button loading
     SetLoading(true);
     try {
@@ -140,6 +139,11 @@ export default function PostContainer() {
     }
   };
 
+  const handleDeleteClick = (postId) => {
+    console.log(postId);
+    setPostId(postId);
+  };
+
   const handleEditClick = (event, post, postId) => {
     event.target.classList.add("modal-open");
     setSelectedCard(post);
@@ -149,6 +153,10 @@ export default function PostContainer() {
   const handleCloseClick = () => {
     setSelectedCard(null);
   };
+
+
+  // reference for scrolling to section
+  const sectionRef = useRef();
 
   return (
     <>
@@ -195,6 +203,7 @@ export default function PostContainer() {
                 handleDeletePost={handleDeletePost}
                 handleUpdatePost={handleUpdatePost}
                 handleEditClick={handleEditClick}
+                handleDeleteClick={handleDeleteClick}
                 post={post}
                 loading={loading}
               />
@@ -267,9 +276,9 @@ export default function PostContainer() {
       {/* ------- to open Modal ---------- */}
       {selectedCard && (
         <Modal
+          selectedCard={selectedCard}
           postId={postId}
           handleUpdatePost={handleUpdatePost}
-          selectedCard={selectedCard}
           handleCloseClick={handleCloseClick}
           loading={loading}
         />

@@ -122,7 +122,7 @@ export default function Modal({
               <label
                 onClick={handleCloseClick}
                 htmlFor="my-modal-5"
-                className="btn"
+                className="btn px-[10px] capitalize text-sm"
               >
                 Cancel
               </label>
@@ -133,7 +133,7 @@ export default function Modal({
                 htmlFor="my-modal-5"
                 className={`${
                   loading ? "loading" : ""
-                } btn btn-warning  text-white outline-none border-none hover:bg-yellow-400 w-24`}
+                } btn btn-warning  text-white outline-none border-none hover:bg-yellow-400 w-20 text-base capitalize`}
               >
                 Save
               </button>
