@@ -6,7 +6,8 @@ import { toast, ToastContainer } from "react-toastify";
 import ScrollToTop from "react-scroll-up";
 
 import PostCard from "../../Components/shared/PostCard/PostCard";
-import Modal from "./../../Components/Modal/Modal";
+import EditModal from "./../../Components/EditModal/EditModal";
+import DeleteModal from "../../Components/DeleteModal/DeleteModal";
 import ServerError from "./../../Pages/ServerError/ServerError";
 
 // ------ BACKEND API --------
@@ -17,7 +18,6 @@ export default function PostContainer() {
   const name = localStorage.getItem("username");
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
-  
   // ---------------- States ----------------
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
@@ -68,7 +68,7 @@ export default function PostContainer() {
         theme: "dark",
       });
 
-      // Close Modal
+      //To Close Modal
       modal.style.display = "none";
     } catch (error) {
       // Stop button loading
@@ -153,7 +153,6 @@ export default function PostContainer() {
   const handleCloseClick = () => {
     setSelectedCard(null);
   };
-
 
   // reference for scrolling to section
   const sectionRef = useRef();
@@ -275,7 +274,7 @@ export default function PostContainer() {
 
       {/* ------- to open Modal ---------- */}
       {selectedCard && (
-        <Modal
+        <EditModal
           selectedCard={selectedCard}
           postId={postId}
           handleUpdatePost={handleUpdatePost}
@@ -283,6 +282,12 @@ export default function PostContainer() {
           loading={loading}
         />
       )}
+
+      <DeleteModal
+        postId={postId}
+        handleDeletePost={handleDeletePost}
+        loading={loading}
+      />
     </>
   );
 }

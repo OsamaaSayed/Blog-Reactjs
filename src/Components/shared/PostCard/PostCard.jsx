@@ -47,7 +47,7 @@ export default function PostCard({
               </h2>
             </Link>
             <span className="text-sm text-gray-300">By</span>{" "}
-            <span className=" text-lg capitalize text-gray-300">{name}</span>
+            <span className="2xsm:text-base md:text-lg capitalize text-gray-300">{name}</span>
             <h6 className="text-sm text-gray-500">{swapDate}</h6>
           </div>
 
@@ -128,8 +128,8 @@ export default function PostCard({
         </div>
 
         <div
-          className={`divider mt-2 mb-0 w-[95%] ${
-            flag ? "w-[90%] mx-auto" : ""
+          className={`divider mt-2 mb-0 w-full ${
+            flag ? "mx-auto" : ""
           }`}
         ></div>
       </div>

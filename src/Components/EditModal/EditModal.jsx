@@ -1,10 +1,9 @@
-import React from "react";
-import { useState } from "react";
+import React,{ useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { toast, ToastContainer } from "react-toastify";
 
-export default function Modal({
+export default function EditModal({
   postId,
   selectedCard,
   handleUpdatePost,

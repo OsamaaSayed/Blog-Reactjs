@@ -5,7 +5,8 @@ import { ThreeDots } from "react-loader-spinner";
 import { toast, ToastContainer } from "react-toastify";
 
 import PostCard from "../../Components/shared/PostCard/PostCard";
-import Modal from "./../../Components/Modal/Modal";
+import EditModal from "./../../Components/EditModal/EditModal";
+import DeleteModal from "../../Components/DeleteModal/DeleteModal";
 import ServerError from "../../Pages/ServerError/ServerError";
 
 // ------ BACKEND API --------
@@ -69,7 +70,7 @@ export default function PostDetailsContainer() {
         theme: "dark",
       });
 
-      // Close modal
+      /// To Close modal
       modal.style.display = "none";
 
       // navigate to home after the success pop up finish
@@ -148,6 +149,12 @@ export default function PostDetailsContainer() {
     }
   };
 
+  const handleDeleteClick = (postId) => {
+    console.log(postId);
+    setPostId(postId);
+  };
+
+
   const handleEditClick = (event, post, postId) => {
     event.target.classList.add("modal-open");
     setSelectedCard(post);
@@ -174,6 +181,7 @@ export default function PostDetailsContainer() {
             handleDeletePost={handleDeletePost}
             handleUpdatePost={handleUpdatePost}
             handleEditClick={handleEditClick}
+            handleDeleteClick={handleDeleteClick}
             post={post}
             loading={loading}
             flag={flag}
@@ -215,7 +223,7 @@ export default function PostDetailsContainer() {
 
       {/* ------- to open Modal ---------- */}
       {selectedCard && (
-        <Modal
+        <EditModal
           postId={postId}
           handleUpdatePost={handleUpdatePost}
           selectedCard={selectedCard}
@@ -223,6 +231,12 @@ export default function PostDetailsContainer() {
           loading={loading}
         />
       )}
+
+      <DeleteModal
+        postId={postId}
+        handleDeletePost={handleDeletePost}
+        loading={loading}
+      />
     </>
   );
 }
