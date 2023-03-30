@@ -6,12 +6,12 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 //BACKEND
-import { BASE_URL } from './../../Service/API';
-
+import { BASE_URL } from "./../../Service/API";
 
 function PostForm() {
+  // -------- States ---------
+  const [imageUrl, setImage] = useState(null);
 
-  
   const token = localStorage.getItem("token");
 
   // ------- For form validation ----------
@@ -44,11 +44,7 @@ function PostForm() {
     };
 
     try {
-      const { res } = await axios.post(
-        `${BASE_URL}/v1/post`,
-        formData,
-        config
-      );
+      const { res } = await axios.post(`${BASE_URL}/v1/post`, formData, config);
       console.log(res);
       SetLoading(false);
 
@@ -82,6 +78,12 @@ function PostForm() {
         theme: "dark",
       });
     }
+  };
+
+  const onPhotoInputChange = (e) => {
+    const file = e.target.files[0];
+    const url = URL.createObjectURL(file);
+    setImage(url);
   };
 
   return (
@@ -159,6 +161,7 @@ function PostForm() {
                             strokeLinejoin="round"
                           />
                         </svg>
+
                         <div className="flex text-sm text-gray-300">
                           <label
                             htmlFor="file-upload"
@@ -166,8 +169,11 @@ function PostForm() {
                           >
                             <span>Upload Image</span>
                             <input
-                              {...register("photo", { required: "Image is required" })}
+                              {...register("photo", {
+                                required: "Image is required",
+                              })}
                               id="file-upload"
+                              onChange={onPhotoInputChange}
                               name="photo"
                               type="file"
                               accept="image/*"
@@ -176,13 +182,25 @@ function PostForm() {
                           </label>
                           <p className="pl-1">or drag and drop</p>
                         </div>
-                        
                       </div>
                     </div>
 
                     <p className="text-red-600">{errors.photo?.message}</p>
                   </div>
+
+                  <div
+                    className={`2xsm:w-full sm:w-[60%] md:w-[40%] mx-auto ${
+                      imageUrl ? "visible" : "hidden"
+                    }`}
+                  >
+                    <img
+                      className="w-full object-cover h-[260px] rounded-xl"
+                      src={imageUrl}
+                      alt="blog image"
+                    />
+                  </div>
                 </div>
+
                 <div className=" px-4 py-3 text-right sm:px-6">
                   <button
                     type="submit"

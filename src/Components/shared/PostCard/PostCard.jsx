@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 import DeleteCard from "../DeleteCard/DeleteCard";
@@ -25,8 +26,9 @@ export default function PostCard({
   //---- displaying the date of post in dd mm yy ----
   let date = new Date(createdAt);
   date = date.toDateString().substring(4);
-  const swapDate = date.replace(/(\w+)\s(\w+)/, "$2 $1");
+  const swapDate = date.replace(/(\w+)\s(\w+)/, "$2 $1,");
 
+  
   return (
     <>
       {/* *********** Card *********** */}

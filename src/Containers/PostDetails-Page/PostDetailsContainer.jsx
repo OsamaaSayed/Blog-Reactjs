@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
-import { toast , ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 import PostCard from "../../Components/shared/PostCard/PostCard";
 import Modal from "./../../Components/Modal/Modal";
@@ -28,7 +28,7 @@ export default function PostDetailsContainer() {
   const [loading, SetLoading] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [postId, setPostId] = useState(null);
-  
+
   // ---------------- Effects ----------------
   useEffect(() => {
     async function getPosts() {
@@ -40,6 +40,8 @@ export default function PostDetailsContainer() {
         console.log("error", error);
       }
     }
+
+    window.scrollTo(0, 0);
 
     getPosts();
   }, []);
