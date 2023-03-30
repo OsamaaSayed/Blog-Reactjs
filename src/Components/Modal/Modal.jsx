@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { toast, ToastContainer } from "react-toastify";
+
 export default function Modal({
   postId,
   selectedCard,
@@ -13,6 +15,7 @@ export default function Modal({
   const [title, setTitle] = useState(selectedCard.title);
   const [content, setContent] = useState(selectedCard.content);
   const [imageUrl, setImage] = useState(selectedCard.photo[0].url);
+  const [isErrorFile, setErrorFile] = useState(false);
 
   // ----------- Handlers ------------
   const onChangeTitleInput = (e) => {
@@ -24,8 +27,25 @@ export default function Modal({
 
   const onChangePhotoInput = (e) => {
     const file = e.target.files[0];
-    const url = URL.createObjectURL(file);
-    setImage(url);
+    if (file && file.type.startsWith("image/")) {
+      setErrorFile(false);
+      const url = URL.createObjectURL(file);
+      setImage(url);
+    } else {
+      // to make save button disabled
+      setErrorFile(true);
+      // Error pop up
+      toast.error(`Please select a valid image file`, {
+        position: "top-right",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
 
   // -------- For form validation -----------
@@ -107,6 +127,7 @@ export default function Modal({
                 Cancel
               </label>
               <button
+                disabled={isErrorFile}
                 id="saveBtn"
                 type="submit"
                 htmlFor="my-modal-5"
@@ -120,6 +141,20 @@ export default function Modal({
           </form>
         </div>
       </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        limit={1}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover={false}
+        theme="dark"
+      />
     </div>
   );
 }

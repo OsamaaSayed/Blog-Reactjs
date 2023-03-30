@@ -9,23 +9,12 @@ import { toast, ToastContainer } from "react-toastify";
 import { BASE_URL } from "./../../Service/API";
 
 function PostForm() {
-  // -------- States ---------
-  const [imageUrl, setImage] = useState(null);
-
   const token = localStorage.getItem("token");
 
-  // ------- For form validation ----------
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  // ------- For navigation -------
-  const navigate = useNavigate();
-
-  // -------- States ---------------
+  // -------- States ---------
+  const [imageUrl, setImage] = useState(null);
   const [loading, SetLoading] = useState(false);
+  const [isErrorFile, setErrorFile] = useState(false);
 
   // -------- Handlers -------------
   const handleSavePost = async (data) => {
@@ -45,7 +34,6 @@ function PostForm() {
 
     try {
       const { res } = await axios.post(`${BASE_URL}/v1/post`, formData, config);
-      console.log(res);
       SetLoading(false);
 
       // Success pop up
@@ -67,7 +55,7 @@ function PostForm() {
     } catch (error) {
       SetLoading(false);
       // Error pop up
-      toast.error(`${error.response.data} 😞`, {
+      toast.error(`${error.response.data.message} 😞`, {
         position: "top-right",
         autoClose: false,
         hideProgressBar: false,
@@ -82,9 +70,36 @@ function PostForm() {
 
   const onPhotoInputChange = (e) => {
     const file = e.target.files[0];
-    const url = URL.createObjectURL(file);
-    setImage(url);
+    if (file && file.type.startsWith("image/")) {
+      setErrorFile(false);
+      const url = URL.createObjectURL(file);
+      setImage(url);
+    } else {
+      // to make post button disabled
+      setErrorFile(true);
+      // Error pop up
+      toast.error(`Please select a valid image file`, {
+        position: "top-right",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
+
+  // ------- For form validation ----------
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  // ------- For navigation -------
+  const navigate = useNavigate();
 
   return (
     <>
@@ -202,11 +217,11 @@ function PostForm() {
                 </div>
 
                 <div className=" px-4 py-3 text-right sm:px-6">
-                  <button
+                  <button disabled={isErrorFile}
                     type="submit"
-                    className={`${
-                      loading ? "loading" : ""
-                    } text-white btn btn-primary capitalize text-sm cursor-pointer`}
+                    className={`${loading ? "loading" : ""} 
+                      
+                     text-white btn btn-primary capitalize text-sm cursor-pointer`}
                   >
                     Post
                   </button>
@@ -217,7 +232,7 @@ function PostForm() {
         </div>
       </div>
 
-      {/* Posting success */}
+      
       <ToastContainer
         position="top-right"
         autoClose={1500}
