@@ -12,6 +12,21 @@ export default function Modal({
   // ----------- States -----------
   const [title, setTitle] = useState(selectedCard.title);
   const [content, setContent] = useState(selectedCard.content);
+  const [imageUrl, setImage] = useState(selectedCard.photo[0].url);
+
+  // ----------- Handlers ------------
+  const onChangeTitleInput = (e) => {
+    setTitle(e.target.value);
+  };
+  const onChangeContentInput = (e) => {
+    setContent(e.target.value);
+  };
+
+  const onChangePhotoInput = (e) => {
+    const file = e.target.files[0];
+    const url = URL.createObjectURL(file);
+    setImage(url);
+  };
 
   // -------- For form validation -----------
   const {
@@ -20,28 +35,13 @@ export default function Modal({
     formState: { errors },
   } = useForm();
 
-  // ----------- Handlers ------------
-  const changeTitleInput = (e) => {
-    setTitle(e.target.value);
-  };
-  const changeContentInput = (e) => {
-    setContent(e.target.value);
-  };
-
-
-
   return (
     <div>
-
       {/* The Modal Body */}
-      <input
-        type="checkbox"
-        id="my-modal-5"
-        className="modal-toggle"
-      />
+      <input type="checkbox" id="my-modal-5" className="modal-toggle" />
 
       <div id="modal" className="modal">
-        <div className="modal-box w-full max-w-5xl">
+        <div className="modal-box  2xsm:w-[90%] md:w-[70%]">
           <h3 className="font-bold text-xl text-center">Update Post</h3>
 
           <form
@@ -57,7 +57,7 @@ export default function Modal({
               name="title"
               id="title"
               value={title}
-              onChange={changeTitleInput}
+              onChange={onChangeTitleInput}
               placeholder="Title"
               className="input input-lg input-bordered w-full my-2 text-lg focus:outline-none border-gray-200"
             />
@@ -71,21 +71,32 @@ export default function Modal({
               name="content"
               id="content"
               value={content}
-              onChange={changeContentInput}
+              onChange={onChangeContentInput}
               placeholder="Brief description for your post"
               className="textarea textarea-lg textarea-bordered w-full resize-none my-2 text-lg focus:outline-none border-gray-200"
             ></textarea>
             <p className="text-red-600">{errors.content?.message}</p>
 
-            <input
-              {...register("photo", { required: "Image is required" })}
-              type="file"
-              name="photo"
-              id="photo"
-              accept="image/*"
-              className="file-input file-input-bordered rounded-none w-full focus:outline-none border-gray-200 my-2"
-            />
-            <p className="text-red-600">{errors.photo?.message}</p>
+            <div className="flex flex-col justify-center items-center gap-1">
+              <input
+                {...register("photo", { required: "Image is required" })}
+                type="file"
+                name="photo"
+                id="photo"
+                onChange={onChangePhotoInput}
+                accept="image/*"
+                className="file-input file-input-bordered rounded-none w-full focus:outline-none border-gray-200 my-2"
+              />
+              <p className="text-red-600">{errors.photo?.message}</p>
+
+              <div className="2xsm:w-full md:w-1/2">
+                <img
+                  src={imageUrl}
+                  alt="blog image"
+                  className="w-full object-cover h-[260px] rounded-xl"
+                />
+              </div>
+            </div>
 
             <div className="modal-action">
               <label
