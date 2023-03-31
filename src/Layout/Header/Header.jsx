@@ -31,9 +31,9 @@ export default function Header() {
         <div className="ml-4">
           <Link
             to="/"
-            className="normal-case text-2xl hover:text-primary"
+            className="normal-case text-2xl hover:text-primary font-extrabold"
           >
-            ReactBlog
+            ChillTime
           </Link>
         </div>
 

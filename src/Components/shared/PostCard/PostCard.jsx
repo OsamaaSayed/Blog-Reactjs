@@ -35,7 +35,7 @@ export default function PostCard({
         className={`mx-auto md:w-full ${flag ? "2xsm:w-full" : "2xsm:w-[90%]"}`}
       >
         <div
-          className={`card card-compact h-[448px] bg-formColor shadow-xl overflow-hidden w-full ${
+          className={`card card-compact h-[448px] bg-formColor shadow-xl overflow-hidden w-full hover:shadow-gray-600 hover:shadow-sm ${
             flag ? "mx-auto w-full h-auto" : ""
           }`}
         >

@@ -71,7 +71,7 @@ export default function EditModal({
             <input
               {...register("title", {
                 required: "Title is required",
-                maxLength: { value: 70, message: "Max length 70" },
+                maxLength: { value: 250, message: "Max length 250" },
                 minLength: { value: 5, message: "Min length 5" },
               })}
               type="text"

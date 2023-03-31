@@ -79,9 +79,8 @@ export default function RegisterForm() {
               <div className="text-center px-[10px] leading-5">
                 <h1 className="text-white text-3xl">Welcome</h1>
                 <p className="text-white">
-                  Start exploring our website today, and discover a world of
-                  knowledge and inspiration that will help you achieve your
-                  goals and live your best life
+                  Join our community and start sharing your favorite shows and
+                  movies
                 </p>
               </div>
             </div>
@@ -134,7 +133,7 @@ export default function RegisterForm() {
                       type={showPassword ? "text" : "password"}
                       placeholder="********"
                       name="password"
-                      className={` w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${
+                      className={` w-full border border-gray-400 py-1 px-2 bg-transparent rounded outline-none ${
                         errors.password
                           ? "border border-red-600 focus:outline-none"
                           : ""
@@ -158,7 +157,7 @@ export default function RegisterForm() {
                       type={showPassword ? "text" : "password"}
                       placeholder="********"
                       name="confirm_password"
-                      className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${
+                      className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded outline-none ${
                         errors.confirm_password
                           ? "border border-red-600 focus:outline-none"
                           : ""

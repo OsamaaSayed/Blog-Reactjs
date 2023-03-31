@@ -99,16 +99,16 @@ export default function LoginForm() {
                         required: "Password is required",
                         minLength: { value: 5, message: "Min length is 5" },
                       })}
-                      type={showPassword? "text" : "password"}
+                      type={showPassword ? "text" : "password"}
                       placeholder="********"
                       name="password"
-                      className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${
+                      className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded outline-none ${
                         errors.password
                           ? "border border-red-600 focus:outline-none"
                           : ""
                       }`}
                     />
-                    
+
                     <button
                       onClick={toggleShowPassword}
                       className="absolute top-1/2 right-[5%] translate-x-0 -translate-y-[50%]"
@@ -139,7 +139,7 @@ export default function LoginForm() {
               <div className="text-center px-[10px] leading-5">
                 <h1 className="text-white text-3xl">Welcome Back</h1>
                 <p className="text-white">
-                  Explore Learn Inspire, Your Destination for Insightful
+                Be ready to discover your next favorite show, Your Destination for Insightful
                   Blogging
                 </p>
               </div>

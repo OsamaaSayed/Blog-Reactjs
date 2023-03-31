@@ -174,9 +174,10 @@ export default function PostContainer() {
                 <h1 className="mb-5 text-5xl font-bold text-white">
                   Hello {name?.split(" ")[0]}
                 </h1>
-                <p className="mb-5">
-                  Welcome to ReactBlog! We're excited to have you here.
+                <p className="text-[#d9d9d9]">
+                  Welcome to ChillTime! We're excited to have you here
                 </p>
+                <p className="mb-5 text-[#d9d9d9]">Dive into the World of Film and TV with Us</p>
                 <button
                   onClick={() => {
                     sectionRef.current.scrollIntoView({ behavior: "smooth" });
