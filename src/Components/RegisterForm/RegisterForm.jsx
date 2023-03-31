@@ -7,8 +7,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 import EyeIcon from "../shared/EyeIcon/EyeIcon";
-import EyeSlashIcon from './../shared/EyeSlashIcon/EyeSlashIcon';
-
+import EyeSlashIcon from "./../shared/EyeSlashIcon/EyeSlashIcon";
 
 import "react-toastify/dist/ReactToastify.min.css";
 
@@ -142,19 +141,14 @@ export default function RegisterForm() {
                       }`}
                     />
 
-                    <p className="text-red-600">{errors.password?.message}</p>
-
                     <button
                       onClick={toggleShowPassword}
                       className="absolute top-1/2 right-[5%] translate-x-0 -translate-y-[50%]"
                     >
-                      {showPassword ? (
-                        <EyeIcon/>
-                      ) : (
-                        <EyeSlashIcon/>
-                      )}
+                      {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
                     </button>
                   </div>
+                  <p className="text-red-600">{errors.password?.message}</p>
 
                   <div className="relative">
                     <input
@@ -174,21 +168,17 @@ export default function RegisterForm() {
                     getValues("confirm_password") ? (
                       <p className="text-red-600">Password doesn't match</p>
                     ) : null}
-                    <p className="text-red-600">
-                      {errors.confirm_password?.message}
-                    </p>
 
                     <button
                       onClick={toggleShowPassword}
                       className="absolute top-1/2 right-[5%] translate-x-0 -translate-y-[50%]"
                     >
-                      {showPassword ? (
-                      <EyeIcon/>
-                      ) : (
-                        <EyeSlashIcon/>
-                      )}
+                      {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
                     </button>
                   </div>
+                  <p className="text-red-600">
+                    {errors.confirm_password?.message}
+                  </p>
 
                   <select
                     {...register("gender", { required: "Gender is required" })}

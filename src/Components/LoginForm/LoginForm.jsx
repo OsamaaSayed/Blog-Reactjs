@@ -108,7 +108,7 @@ export default function LoginForm() {
                           : ""
                       }`}
                     />
-                    <p className="text-red-600">{errors.password?.message}</p>
+                    
                     <button
                       onClick={toggleShowPassword}
                       className="absolute top-1/2 right-[5%] translate-x-0 -translate-y-[50%]"
@@ -116,7 +116,7 @@ export default function LoginForm() {
                       {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
                     </button>
                   </div>
-
+                  <p className="text-red-600">{errors.password?.message}</p>
                   <button
                     type="submit"
                     className={`${
