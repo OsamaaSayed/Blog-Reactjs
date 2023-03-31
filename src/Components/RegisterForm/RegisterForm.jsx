@@ -6,38 +6,28 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
+import EyeIcon from "../shared/EyeIcon/EyeIcon";
+import EyeSlashIcon from './../shared/EyeSlashIcon/EyeSlashIcon';
+
+
 import "react-toastify/dist/ReactToastify.min.css";
 
 // BACKEND API
-import { BASE_URL } from './../../Service/API';
-
+import { BASE_URL } from "./../../Service/API";
 
 export default function RegisterForm() {
   // BACKEND API
 
-
   // ********** States ***********
   const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    getValues,
-    formState: { errors },
-  } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
 
   // ********** Handlers ***************
   const registerHandler = async (user) => {
     console.log(user.gender);
     setLoading(true);
     try {
-      const { data } = await axios.post(
-        `${BASE_URL}/v1/users/sign-up`,
-        user
-      );
+      const { data } = await axios.post(`${BASE_URL}/v1/users/sign-up`, user);
       console.log(data);
       const token = data.data.access_token;
       const userId = data.data.user._id;
@@ -66,14 +56,27 @@ export default function RegisterForm() {
     }
   };
 
-  console.log(errors);
+  const toggleShowPassword = (e) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  };
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    getValues,
+    formState: { errors },
+  } = useForm();
+
+  const navigate = useNavigate();
 
   return (
     <>
       <div className="flex justify-center items-center mt-28 mb-11">
         <div className="w-[90%] mx-auto">
           <div className="bg-formColor flex flex-col lg:flex-row lg:w-[75%] rounded-xl mx-auto shadow-xl overflow-hidden">
-            <div  className=" w-full h-[35rem] lg:w-1/2 bg-bgImg bg-cover bg-center bg-no-repeat flex justify-center items-center">
+            <div className=" w-full h-[35rem] lg:w-1/2 bg-bgImg bg-cover bg-center bg-no-repeat flex justify-center items-center">
               <div className="text-center px-[10px] leading-5">
                 <h1 className="text-white text-3xl">Welcome</h1>
                 <p className="text-white">
@@ -97,7 +100,11 @@ export default function RegisterForm() {
                     type="text"
                     placeholder="Full Name"
                     name="username"
-                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.username?'border border-red-600 focus:outline-none' : ""}`}
+                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${
+                      errors.username
+                        ? "border border-red-600 focus:outline-none"
+                        : ""
+                    }`}
                   />
                   <p className="text-red-600">{errors.username?.message}</p>
                   <input
@@ -111,35 +118,77 @@ export default function RegisterForm() {
                     type="email"
                     placeholder="example@mail.com"
                     name="email"
-                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.email?'border border-red-600 focus:outline-none' : ""}`}
+                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${
+                      errors.email
+                        ? "border border-red-600 focus:outline-none"
+                        : ""
+                    }`}
                   />
                   <p className="text-red-600">{errors.email?.message}</p>
-                  <input
-                    {...register("password", {
-                      required: "Password is required",
-                      minLength: { value: 5, message: "Min length is 5" },
-                    })}
-                    type="password"
-                    placeholder="********"
-                    name="password"
-                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.password?'border border-red-600 focus:outline-none' : ""}`}
-                  />
-                  <p className="text-red-600">{errors.password?.message}</p>
-                  <input
-                    {...register("confirm_password", { required: "Confirm Password is required" })}
-                    type="password"
-                    placeholder="********"
-                    name="confirm_password"
-                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.confirm_password?'border border-red-600 focus:outline-none' : ""}`}
-                  />
-                  {watch("confirm_password") !== watch("password") &&
-                  getValues("confirm_password") ? (
-                    <p className="text-red-600">Password doesn't match</p>
-                  ) : null}
-                  <p className="text-red-600">
-                    {errors.confirm_password?.message}
-                  </p>
 
+                  <div className="relative">
+                    <input
+                      {...register("password", {
+                        required: "Password is required",
+                        minLength: { value: 5, message: "Min length is 5" },
+                      })}
+                      type={showPassword ? "text" : "password"}
+                      placeholder="********"
+                      name="password"
+                      className={` w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${
+                        errors.password
+                          ? "border border-red-600 focus:outline-none"
+                          : ""
+                      }`}
+                    />
+
+                    <p className="text-red-600">{errors.password?.message}</p>
+
+                    <button
+                      onClick={toggleShowPassword}
+                      className="absolute top-1/2 right-[5%] translate-x-0 -translate-y-[50%]"
+                    >
+                      {showPassword ? (
+                        <EyeIcon/>
+                      ) : (
+                        <EyeSlashIcon/>
+                      )}
+                    </button>
+                  </div>
+
+                  <div className="relative">
+                    <input
+                      {...register("confirm_password", {
+                        required: "Confirm Password is required",
+                      })}
+                      type={showPassword ? "text" : "password"}
+                      placeholder="********"
+                      name="confirm_password"
+                      className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${
+                        errors.confirm_password
+                          ? "border border-red-600 focus:outline-none"
+                          : ""
+                      }`}
+                    />
+                    {watch("confirm_password") !== watch("password") &&
+                    getValues("confirm_password") ? (
+                      <p className="text-red-600">Password doesn't match</p>
+                    ) : null}
+                    <p className="text-red-600">
+                      {errors.confirm_password?.message}
+                    </p>
+
+                    <button
+                      onClick={toggleShowPassword}
+                      className="absolute top-1/2 right-[5%] translate-x-0 -translate-y-[50%]"
+                    >
+                      {showPassword ? (
+                      <EyeIcon/>
+                      ) : (
+                        <EyeSlashIcon/>
+                      )}
+                    </button>
+                  </div>
 
                   <select
                     {...register("gender", { required: "Gender is required" })}
@@ -153,7 +202,6 @@ export default function RegisterForm() {
                     <option>Female</option>
                   </select>
                   <p className="text-red-600">{errors.gender?.message}</p>
-
 
                   <button
                     type="submit"

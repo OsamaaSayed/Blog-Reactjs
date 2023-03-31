@@ -6,35 +6,24 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
+import EyeIcon from "../shared/EyeIcon/EyeIcon";
+import EyeSlashIcon from "./../shared/EyeSlashIcon/EyeSlashIcon";
+
 import "react-toastify/dist/ReactToastify.min.css";
 
 // BACKEND API
-import { BASE_URL } from './../../Service/API';
+import { BASE_URL } from "./../../Service/API";
 
 export default function LoginForm() {
-
-
   // ********** States ***********
   const [loading, setLoading] = useState(false);
-
-  // ----------- for navigation -----------
-  const navigate = useNavigate();
-
-  // ---------- for form validation ----------
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
 
   // ********** Handlers ***************
   const loginHandler = async (user) => {
     setLoading(true);
     try {
-      const { data } = await axios.post(
-        `${BASE_URL}/v1/users/sign-in`,
-        user
-      );
+      const { data } = await axios.post(`${BASE_URL}/v1/users/sign-in`, user);
       console.log(data);
       const token = data.data.access_token;
       const userId = data.data.user._id;
@@ -61,7 +50,19 @@ export default function LoginForm() {
     }
   };
 
-  // console.log(errors);
+  const toggleShowPassword = (e) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  };
+  // ----------- for navigation -----------
+  const navigate = useNavigate();
+
+  // ---------- for form validation ----------
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   return (
     <>
@@ -84,20 +85,37 @@ export default function LoginForm() {
                     type="email"
                     placeholder="example@mail.com"
                     name="email"
-                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.email?'border border-red-600 focus:outline-none' : ""}`}
+                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${
+                      errors.email
+                        ? "border border-red-600 focus:outline-none"
+                        : ""
+                    }`}
                   />
                   <p className="text-red-600">{errors.email?.message}</p>
-                  <input
-                    {...register("password", {
-                      required: "Password is required",
-                      minLength: { value: 5, message: "Min length is 5" },
-                    })}
-                    type="password"
-                    placeholder="********"
-                    name="password"
-                    className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${errors.password?'border border-red-600 focus:outline-none' : ""}`}
-                  />
-                  <p className="text-red-600">{errors.password?.message}</p>
+
+                  <div className="relative">
+                    <input
+                      {...register("password", {
+                        required: "Password is required",
+                        minLength: { value: 5, message: "Min length is 5" },
+                      })}
+                      type={showPassword? "text" : "password"}
+                      placeholder="********"
+                      name="password"
+                      className={`w-full border border-gray-400 py-1 px-2 bg-transparent rounded ${
+                        errors.password
+                          ? "border border-red-600 focus:outline-none"
+                          : ""
+                      }`}
+                    />
+                    <p className="text-red-600">{errors.password?.message}</p>
+                    <button
+                      onClick={toggleShowPassword}
+                      className="absolute top-1/2 right-[5%] translate-x-0 -translate-y-[50%]"
+                    >
+                      {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
+                    </button>
+                  </div>
 
                   <button
                     type="submit"

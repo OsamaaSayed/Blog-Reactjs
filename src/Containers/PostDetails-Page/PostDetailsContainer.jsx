@@ -222,7 +222,7 @@ export default function PostDetailsContainer() {
         theme="dark"
       />
 
-      {/* ------- to open Modal ---------- */}
+      {/* ------- to open & hide Edit Modal ---------- */}
       {selectedCard && (
         <EditModal
           cardId={cardId}
@@ -233,6 +233,7 @@ export default function PostDetailsContainer() {
         />
       )}
 
+      {/* ------- to open & hide Delete Modal ---------- */}
       {deletedCard && (
         <DeleteModal
           cardId={cardId}

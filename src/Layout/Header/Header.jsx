@@ -28,10 +28,10 @@ export default function Header() {
   return (
     <>
       <div className=" navbar justify-between drop-shadow-lg absolute top-0 left-0 right-0 z-[999]">
-        <div className="">
+        <div className="ml-4">
           <Link
             to="/"
-            className=" ml-4 normal-case text-2xl hover:text-primary"
+            className="normal-case text-2xl hover:text-primary"
           >
             ReactBlog
           </Link>
@@ -54,6 +54,7 @@ export default function Header() {
 
           <div className="dropdown dropdown-end mr-4">
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
+
               <div className="rounded-full">
                 {gender === "Male" ? (
                   <img src="/male.svg" />
@@ -66,7 +67,7 @@ export default function Header() {
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="w-6 h-6"
+                    className="w-7 h-7"
                   >
                     <path
                       strokeLinecap="round"
@@ -76,6 +77,7 @@ export default function Header() {
                   </svg>
                 )}
               </div>
+
             </label>
 
             <ul

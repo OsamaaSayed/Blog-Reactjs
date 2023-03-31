@@ -277,7 +277,7 @@ export default function PostContainer() {
         </button>
       </ScrollToTop>
 
-      {/* ------- to open Modal ---------- */}
+      {/* ------- to open & hide Edit Modal ---------- */}
       {selectedCard && (
         <EditModal
           selectedCard={selectedCard}
@@ -288,6 +288,7 @@ export default function PostContainer() {
         />
       )}
 
+      {/* ------- to open & hide Delete Modal ---------- */}
       {deletedCard && (
         <DeleteModal
           cardId={cardId}
