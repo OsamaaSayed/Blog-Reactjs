@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import DeleteCard from "../DeleteCard/DeleteCard";
-import EditCard from "./../EditCard/EditCard";
+import DeleteButton from "../DeleteButton/DeleteButton";
+import EditButton from "./../EditButton/EditButton";
 
 export default function PostCard({
   title,
@@ -106,13 +105,13 @@ export default function PostCard({
 
               {userPostId === userId ? (
                 <div className="flex gap-2">
-                  <EditCard
+                  <EditButton
                     key={postId}
                     post={post}
                     postId={postId}
                     handleEditClick={handleEditClick}
                   />
-                  <DeleteCard
+                  <DeleteButton
                     key={postId + 1}
                     postId={postId}
                     handleDeletePost={handleDeletePost}

@@ -1,4 +1,4 @@
-export default function EditCard({ handleEditClick, post, postId }) {
+export default function EditButton({ handleEditClick, post, postId }) {
   return (
     <>
       {/* The button to open modal */}

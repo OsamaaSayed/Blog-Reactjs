@@ -1,5 +1,5 @@
 
-export default function DeleteCard({ postId, handleDeleteClick }) {
+export default function DeleteButton({ postId, handleDeleteClick }) {
 
   return (
     <>
