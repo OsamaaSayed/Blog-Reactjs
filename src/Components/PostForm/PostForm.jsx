@@ -8,7 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 //BACKEND
 import { BASE_URL } from "./../../Service/API";
 
-function PostForm() {
+export default function PostForm() {
   const token = localStorage.getItem("token");
   // -------- States ---------
   const [imageUrl, setImage] = useState(null);
@@ -257,4 +257,4 @@ function PostForm() {
   );
 }
 
-export default PostForm;
+

@@ -18,12 +18,16 @@ export default function PostContainer() {
   const name = localStorage.getItem("username");
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
+  // reference for scrolling to section
+  const sectionRef = useRef();
+
   // ---------------- States ----------------
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, SetLoading] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [postId, setPostId] = useState(null);
+  const [deletedCard, setdeletedCard] = useState(null);
+  const [cardId, setCardId] = useState(null);
 
   // ---------------- Effects ----------------
   useEffect(() => {
@@ -41,13 +45,13 @@ export default function PostContainer() {
   }, []);
 
   // --------------- Handlers ----------------
-  const handleDeletePost = async (postId, modal) => {
-    console.log(postId);
+  const handleDeletePost = async (id) => {
+    console.log(id);
     // Start button loading
     SetLoading(true);
     try {
       // to delete the post
-      await axios.delete(`${BASE_URL}/v1/post/${postId}`, config);
+      await axios.delete(`${BASE_URL}/v1/post/${id}`, config);
 
       // Stop button loading
       SetLoading(false);
@@ -69,7 +73,7 @@ export default function PostContainer() {
       });
 
       //To Close Modal
-      modal.style.display = "none";
+      setdeletedCard(null);
     } catch (error) {
       // Stop button loading
       SetLoading(false);
@@ -88,7 +92,7 @@ export default function PostContainer() {
     }
   };
 
-  const handleUpdatePost = async (data, postId) => {
+  const handleUpdatePost = async (data, id) => {
     // Start button loading
     SetLoading(true);
 
@@ -101,7 +105,7 @@ export default function PostContainer() {
 
     try {
       // to edit the data
-      await axios.patch(`${BASE_URL}/v1/post/${postId}`, formData, config);
+      await axios.patch(`${BASE_URL}/v1/post/${id}`, formData, config);
 
       // Stop button loading
       SetLoading(false);
@@ -121,6 +125,9 @@ export default function PostContainer() {
         progress: undefined,
         theme: "dark",
       });
+
+      // Close Modal
+      setSelectedCard(null);
     } catch (error) {
       // Stop button loading
       SetLoading(false);
@@ -139,23 +146,21 @@ export default function PostContainer() {
     }
   };
 
-  const handleDeleteClick = (postId) => {
-    console.log(postId);
-    setPostId(postId);
+  const handleDeleteClick = (event,id) => {
+    event.target.classList.add("modal-open");
+    setdeletedCard(true);
+    setCardId(id);
   };
 
-  const handleEditClick = (event, post, postId) => {
+  const handleEditClick = (event, post, id) => {
     event.target.classList.add("modal-open");
     setSelectedCard(post);
-    setPostId(postId);
+    setCardId(id);
   };
 
   const handleCloseClick = () => {
     setSelectedCard(null);
   };
-
-  // reference for scrolling to section
-  const sectionRef = useRef();
 
   return (
     <>
@@ -276,18 +281,20 @@ export default function PostContainer() {
       {selectedCard && (
         <EditModal
           selectedCard={selectedCard}
-          postId={postId}
+          cardId={cardId}
           handleUpdatePost={handleUpdatePost}
           handleCloseClick={handleCloseClick}
           loading={loading}
         />
       )}
 
-      <DeleteModal
-        postId={postId}
-        handleDeletePost={handleDeletePost}
-        loading={loading}
-      />
+      {deletedCard && (
+        <DeleteModal
+          cardId={cardId}
+          handleDeletePost={handleDeletePost}
+          loading={loading}
+        />
+      )}
     </>
   );
 }

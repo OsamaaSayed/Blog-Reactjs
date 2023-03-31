@@ -1,13 +1,6 @@
-import React, { useEffect, useState } from "react";
+export default function DeleteModal({ cardId, handleDeletePost, loading  }) {
 
-export default function DeleteModal({ postId, handleDeletePost, loading }) {
-  // -------States -----------
-  let [modal, setModal] = useState(null);
 
-  useEffect(() => {
-    modal = document.getElementById("modal");
-    setModal(modal);
-  }, []);
 
   return (
     <div>
@@ -22,15 +15,15 @@ export default function DeleteModal({ postId, handleDeletePost, loading }) {
             This will delete this post permanently, You cannot undo this action.
           </p>
           <div className="modal-action">
-            <label htmlFor="my-modal" className="btn">
+            <label htmlFor="my-modal" className="btn capitalize">
               No
             </label>
             <button
-              onClick={() => handleDeletePost(postId, modal)}
+              onClick={() => handleDeletePost(cardId)}
               htmlFor="my-modal"
               className={`${
                 loading ? "loading" : ""
-              } btn bg-red-600 text-white outline-none border-none hover:bg-red-500`}
+              } btn bg-red-600 text-white outline-none border-none hover:bg-red-500 capitalize text-base px-5`}
             >
               yes
             </button>

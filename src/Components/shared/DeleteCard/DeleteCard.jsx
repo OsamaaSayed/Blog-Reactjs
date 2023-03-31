@@ -4,7 +4,7 @@ export default function DeleteCard({ postId, handleDeleteClick }) {
   return (
     <>
       {/* The button to open modal */}
-      <label onClick={()=>handleDeleteClick(postId)}
+      <label onClick={(event)=>handleDeleteClick(event,postId)}
         htmlFor="my-modal"
         className="text-red-600 hover:text-red-500 cursor-pointer"
       >

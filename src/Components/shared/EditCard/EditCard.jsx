@@ -1,13 +1,10 @@
-
-export default function EditCard({handleEditClick , post,postId}) {
-
-
-
-
+export default function EditCard({ handleEditClick, post, postId }) {
   return (
     <>
       {/* The button to open modal */}
-      <label htmlFor="my-modal-5" onClick={(event) => handleEditClick(event,post,postId)}
+      <label
+        htmlFor="my-modal-5"
+        onClick={(event) => handleEditClick(event, post, postId)}
         className="text-yellow-500 hover:text-yellow-300 cursor-pointer"
       >
         <svg

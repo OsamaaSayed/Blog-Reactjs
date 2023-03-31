@@ -28,11 +28,12 @@ export default function PostDetailsContainer() {
   const [error, setError] = useState(null);
   const [loading, SetLoading] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [postId, setPostId] = useState(null);
+  const [deletedCard, setdeletedCard] = useState(null);
+  const [cardId, setCardId] = useState(null);
 
   // ---------------- Effects ----------------
   useEffect(() => {
-    async function getPosts() {
+    async function getPost() {
       try {
         const { data } = await axios.get(`${BASE_URL}/v1/post/${id}`);
         setPost(data.data);
@@ -44,16 +45,16 @@ export default function PostDetailsContainer() {
 
     window.scrollTo(0, 0);
 
-    getPosts();
+    getPost();
   }, []);
 
   // --------------- Handlers ----------------
-  const handleDeletePost = async (postId, modal) => {
+  const handleDeletePost = async (id) => {
     // Start button loading
     SetLoading(true);
     try {
       // to delete the post
-      await axios.delete(`${BASE_URL}/v1/post/${postId}`, config);
+      await axios.delete(`${BASE_URL}/v1/post/${id}`, config);
 
       // Stop Loading
       SetLoading(false);
@@ -71,7 +72,7 @@ export default function PostDetailsContainer() {
       });
 
       /// To Close modal
-      modal.style.display = "none";
+      setdeletedCard(null);
 
       // navigate to home after the success pop up finish
       setTimeout(() => {
@@ -95,7 +96,7 @@ export default function PostDetailsContainer() {
     }
   };
 
-  const handleUpdatePost = async (data, postId, modal) => {
+  const handleUpdatePost = async (data, id) => {
     // Start button loading
     SetLoading(true);
 
@@ -108,7 +109,7 @@ export default function PostDetailsContainer() {
 
     try {
       // to edit the data
-      await axios.patch(`${BASE_URL}/v1/post/${postId}`, formData, config);
+      await axios.patch(`${BASE_URL}/v1/post/${id}`, formData, config);
 
       // Stop button loading
       SetLoading(false);
@@ -129,8 +130,8 @@ export default function PostDetailsContainer() {
         theme: "dark",
       });
 
-      // Clsoe Modal
-      modal.style.display = "none";
+      // Close Modal
+      setSelectedCard(null);
     } catch (error) {
       // Stop button loading
       SetLoading(false);
@@ -149,16 +150,16 @@ export default function PostDetailsContainer() {
     }
   };
 
-  const handleDeleteClick = (postId) => {
-    console.log(postId);
-    setPostId(postId);
+  const handleDeleteClick = (event, id) => {
+    event.target.classList.add("modal-open");
+    setdeletedCard(true);
+    setCardId(id);
   };
 
-
-  const handleEditClick = (event, post, postId) => {
+  const handleEditClick = (event, post, id) => {
     event.target.classList.add("modal-open");
     setSelectedCard(post);
-    setPostId(postId);
+    setCardId(id);
   };
 
   const handleCloseClick = () => {
@@ -224,7 +225,7 @@ export default function PostDetailsContainer() {
       {/* ------- to open Modal ---------- */}
       {selectedCard && (
         <EditModal
-          postId={postId}
+          cardId={cardId}
           handleUpdatePost={handleUpdatePost}
           selectedCard={selectedCard}
           handleCloseClick={handleCloseClick}
@@ -232,11 +233,13 @@ export default function PostDetailsContainer() {
         />
       )}
 
-      <DeleteModal
-        postId={postId}
-        handleDeletePost={handleDeletePost}
-        loading={loading}
-      />
+      {deletedCard && (
+        <DeleteModal
+          cardId={cardId}
+          handleDeletePost={handleDeletePost}
+          loading={loading}
+        />
+      )}
     </>
   );
 }

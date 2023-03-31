@@ -1,10 +1,10 @@
-import React,{ useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { toast, ToastContainer } from "react-toastify";
 
 export default function EditModal({
-  postId,
+  cardId,
   selectedCard,
   handleUpdatePost,
   handleCloseClick,
@@ -64,7 +64,9 @@ export default function EditModal({
           <h3 className="font-bold text-xl text-center">Update Post</h3>
 
           <form
-            onSubmit={handleSubmit((data) => handleUpdatePost(data, postId))}
+            onSubmit={handleSubmit((data) =>
+              handleUpdatePost(data, cardId)
+            )}
           >
             <input
               {...register("title", {
@@ -132,7 +134,7 @@ export default function EditModal({
                 htmlFor="my-modal-5"
                 className={`${
                   loading ? "loading" : ""
-                } btn btn-warning  text-white outline-none border-none hover:bg-yellow-400 w-20 text-base capitalize`}
+                } btn btn-warning  text-white outline-none border-none hover:bg-yellow-400 w-24 text-base capitalize`}
               >
                 Save
               </button>
