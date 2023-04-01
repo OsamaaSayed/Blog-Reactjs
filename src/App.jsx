@@ -8,6 +8,7 @@ import AddPost from "./Pages/AddPost/AddPost";
 import NotFound from "./Pages/NotFound/NotFound";
 import PrivateRoutes from "./Utils/PrivateRoutes/PrivateRoutes";
 import PostDetails from "./Pages/PostDetails/PostDetails";
+import Footer from "./Layout/Footer/Footer";
 
 import "./App.css";
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/post/:id" element={<PostDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </>
   );

@@ -32,7 +32,7 @@ export default function PostForm() {
     };
 
     try {
-      const { res } = await axios.post(`${BASE_URL}/v1/post`, formData, config);
+      await axios.post(`${BASE_URL}/v1/post`, formData, config);
       SetLoading(false);
 
       // Success pop up
@@ -69,7 +69,6 @@ export default function PostForm() {
 
   const onPhotoInputChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
     if (file && file.type.startsWith("image/")) {
       setErrorFile(false);
       const url = URL.createObjectURL(file);
@@ -100,8 +99,6 @@ export default function PostForm() {
 
   // ------- For navigation -------
   const navigate = useNavigate();
-
-
 
   return (
     <>
@@ -259,5 +256,3 @@ export default function PostForm() {
     </>
   );
 }
-
-

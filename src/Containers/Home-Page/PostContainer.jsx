@@ -79,6 +79,7 @@ export default function PostContainer() {
       SetLoading(false);
       console.log("error", error);
       // Error pop up
+ 
       toast.error("Sorry.., something went wrong. Please try again later", {
         position: "top-right",
         autoClose: false,
@@ -146,7 +147,7 @@ export default function PostContainer() {
     }
   };
 
-  const handleDeleteClick = (event,id) => {
+  const handleDeleteClick = (event, id) => {
     event.target.classList.add("modal-open");
     setdeletedCard(true);
     setCardId(id);
@@ -177,7 +178,9 @@ export default function PostContainer() {
                 <p className="text-[#d9d9d9]">
                   Welcome to ChillTime! We're excited to have you here
                 </p>
-                <p className="mb-5 text-[#d9d9d9]">Dive into the World of Film and TV with Us</p>
+                <p className="mb-5 text-[#d9d9d9]">
+                  Dive into the World of Film and TV with Us
+                </p>
                 <button
                   onClick={() => {
                     sectionRef.current.scrollIntoView({ behavior: "smooth" });

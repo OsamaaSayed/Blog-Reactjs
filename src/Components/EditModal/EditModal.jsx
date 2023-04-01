@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { toast, ToastContainer } from "react-toastify";
@@ -15,7 +15,9 @@ export default function EditModal({
   const [content, setContent] = useState(selectedCard.content);
   const [imageUrl, setImage] = useState(selectedCard.photo[0].url);
   const [isErrorFile, setErrorFile] = useState(false);
-  const [file, setFile] = useState('');
+
+  // const [file, setFile] = useState("");
+  // const inputPhotoRef = useRef();
 
   // ----------- Handlers ------------
   const onChangeTitleInput = (e) => {
@@ -55,19 +57,28 @@ export default function EditModal({
     formState: { errors },
   } = useForm();
 
-  const urlToblob = async () => {
-    const response = await fetch(selectedCard.photo[0].url);
-    console.log('response',response);
-   const blob =  await response.blob();
-   console.log('blob',blob);
-   const fileName = selectedCard.photo[0].url.split('/').pop();
-   console.log('filename',fileName);
-    const file = new File([blob], fileName, { type: blob.type });
-    console.log('file',file);
-    setFile(file.name);
-  };
+  // useEffect(() => {
+  //   const urlToFile = async () => {
+  //     const response = await fetch(selectedCard.photo[0].url);
+  //     console.log("response", response);
+  //     const blob = await response.blob();
+  //     console.log("blob", blob);
+  //     const fileName = selectedCard.photo[0].url.split("/").pop();
+  //     console.log("filename", fileName);
+  //     const file = new File([blob], fileName, { type: blob.type });
+  //     console.log("file", file);
+  //     setFile(file);
 
-  urlToblob();
+  //     inputPhotoRef.current.value = null;
+  //     inputPhotoRef.current.files = [file];
+
+  //   let photoInput = document.getElementById("photo");
+  //   console.log(photoInput.files);
+  //   photoInput.files[0] = file;
+  // };
+
+  //   urlToFile();
+  // },[]);
 
   return (
     <div>
@@ -117,7 +128,6 @@ export default function EditModal({
                 type="file"
                 name="photo"
                 id="photo"
-                value={file}
                 onChange={onChangePhotoInput}
                 accept="image/*"
                 className="file-input file-input-bordered rounded-none w-full focus:outline-none border-gray-200 my-2"
