@@ -168,7 +168,7 @@ export default function PostContainer() {
       {posts.length ? (
         <>
           {/* // Header */}
-          <div className="hero min-h-screen bg-bgHome mb-12">
+          <div className="hero min-h-screen bg-bgHome">
             <div className="hero-overlay bg-opacity-60"></div>
             <div className="hero-content text-center text-neutral-content">
               <div className="max-w-md">
@@ -196,7 +196,7 @@ export default function PostContainer() {
           {/* Card */}
           <div
             ref={sectionRef}
-            className=" w-[95%] mx-auto grid gap-x-6 gap-y-1 justify-center items-center 2xsm:grid-cols-1  md:grid-cols-3"
+            className=" w-[95%] mx-auto grid gap-x-6 gap-y-1 justify-center items-center 2xsm:grid-cols-1  md:grid-cols-3 mt-16 mb-5"
           >
             {posts.map((post) => (
               <PostCard

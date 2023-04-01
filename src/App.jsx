@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 
 import Header from "./Layout/Header/Header";
 import Home from "./Pages/Home/Home";
@@ -13,25 +13,27 @@ import Footer from "./Layout/Footer/Footer";
 import "./App.css";
 
 function App() {
+  const location = useLocation();
+  const hiddenFooterPaths = ["/login", "/register"];
+  const hideFooter = hiddenFooterPaths.includes(location.pathname);
+
   return (
     <>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
 
-          <Route element={<PrivateRoutes />}>
-            <Route path="/addPost" element={<AddPost />} />
-          </Route>
+        <Route element={<PrivateRoutes />}>
+          <Route path="/addPost" element={<AddPost />} />
+        </Route>
 
-            <Route path="/post/:id" element={<PostDetails />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer/>
-      </BrowserRouter>
+        <Route path="/post/:id" element={<PostDetails />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      {!hideFooter && <Footer />}
     </>
   );
 }
