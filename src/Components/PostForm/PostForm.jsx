@@ -102,7 +102,7 @@ export default function PostForm() {
 
   return (
     <>
-      <div className="mt-[75px]">
+      <div className="mt-[75px] mb-11">
         <div className="md:grid ">
           <div className="mt-5 md:mt-0">
             <form onSubmit={handleSubmit(handleSavePost)}>

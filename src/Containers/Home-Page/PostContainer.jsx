@@ -196,7 +196,7 @@ export default function PostContainer() {
           {/* Card */}
           <div
             ref={sectionRef}
-            className=" w-[95%] mx-auto grid gap-x-6 gap-y-1 justify-center items-center 2xsm:grid-cols-1  md:grid-cols-3 mt-16 mb-5"
+            className=" w-[95%] mx-auto grid gap-x-6 gap-y-1 justify-center items-center 2xsm:grid-cols-1  md:grid-cols-3 mt-16 mb-11"
           >
             {posts.map((post) => (
               <PostCard
