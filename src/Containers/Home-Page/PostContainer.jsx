@@ -179,7 +179,7 @@ export default function PostContainer() {
                   Welcome to ChillTime! We're excited to have you here
                 </p>
                 <p className="mb-5 text-[#d9d9d9]">
-                  Dive into the World of Film and TV with Us
+                  Dive into the World of Film and TV with us
                 </p>
                 <button
                   onClick={() => {

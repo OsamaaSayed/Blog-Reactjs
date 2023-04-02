@@ -10,7 +10,7 @@ module.exports = {
 
       backgroundImage: {
         'bgImg': "url('/src/assets/Images/background.jpeg')",
-        'bgHome': "url('/src/assets/Images/home.jpg')",
+        'bgHome': "url('/src/assets/Images/Joker.jpg')",
       }
     },
     screens:{

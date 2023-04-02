@@ -1,10 +1,9 @@
-## ChillTime Blog🔥<a href="https://blog-reactjs-sigma.vercel.app/" target="_blank">[Live]</a>
-A repo for Blogging website with Reactjs 👋
+## ChillTime Blog🔥[Live](https://blog-reactjs-sigma.vercel.app/)
+A repo for Movies & Tv Series Blog with Reactjs 👋
 
-<div style="text-align:center" >
-<img src="./public/video-camera.svg" alt="logo" width="200" height="auto" />
-</div>
+## 📸Screenshot
+<img src="https://user-images.githubusercontent.com/90098467/229326553-2664b8ec-0a99-43ba-a8e6-2ccf31494310.png"/>
 
-<hr/>
+
 
 
