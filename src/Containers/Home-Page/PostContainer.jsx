@@ -261,12 +261,11 @@ export default function PostContainer() {
         showUnder={200}
         duration={500}
         style={{
-          transitionDuration: "0.3s",
-          transitionTimingFunction: "linear",
-          transitionDelay: "0s",
+          bottom:60,
+          right:13,
         }}
       >
-        <button className="transition-all duration-200 ease-in-out hover:text-primary">
+        <button className="hover:text-primary">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
