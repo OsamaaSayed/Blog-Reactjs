@@ -79,7 +79,7 @@ export default function PostContainer() {
       SetLoading(false);
       console.log("error", error);
       // Error pop up
- 
+
       toast.error("Sorry.., something went wrong. Please try again later", {
         position: "top-right",
         autoClose: false,
@@ -102,7 +102,10 @@ export default function PostContainer() {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
-    formData.append("photo", photo[0]);
+
+    if (photo.length) {
+      formData.append("photo", photo[0]);
+    } 
 
     try {
       // to edit the data
