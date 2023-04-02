@@ -105,7 +105,9 @@ export default function PostDetailsContainer() {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", content);
-    formData.append("photo", photo[0]);
+    if (photo.length) {
+      formData.append("photo", photo[0]);
+    } 
 
     try {
       // to edit the data
@@ -145,7 +147,7 @@ export default function PostDetailsContainer() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "dark",
       });
     }
   };
