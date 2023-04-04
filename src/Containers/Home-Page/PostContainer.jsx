@@ -40,7 +40,9 @@ export default function PostContainer() {
         console.log(error);
       }
     }
-
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
     getPosts();
   }, []);
 
@@ -105,7 +107,7 @@ export default function PostContainer() {
 
     if (photo.length) {
       formData.append("photo", photo[0]);
-    } 
+    }
 
     try {
       // to edit the data
@@ -261,8 +263,8 @@ export default function PostContainer() {
         showUnder={200}
         duration={500}
         style={{
-          bottom:60,
-          right:13,
+          bottom: 60,
+          right: 13,
         }}
       >
         <button className="hover:text-primary">
