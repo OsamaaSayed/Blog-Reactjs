@@ -163,11 +163,6 @@ export default function RegisterForm() {
                           : ""
                       }`}
                     />
-                    {watch("confirm_password") !== watch("password") &&
-                    getValues("confirm_password") ? (
-                      <p className="text-red-600">Password doesn't match</p>
-                    ) : null}
-
                     <button
                       onClick={toggleShowPassword}
                       className="absolute top-1/2 right-[5%] translate-x-0 -translate-y-[50%]"
@@ -175,10 +170,13 @@ export default function RegisterForm() {
                       {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
                     </button>
                   </div>
+                  {watch("confirm_password") !== watch("password") &&
+                  getValues("confirm_password") ? (
+                    <p className="text-red-600">Password doesn't match</p>
+                  ) : null}
                   <p className="text-red-600">
                     {errors.confirm_password?.message}
                   </p>
-
                   <select
                     {...register("gender", { required: "Gender is required" })}
                     name="gender"
